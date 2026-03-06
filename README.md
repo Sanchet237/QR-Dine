@@ -64,7 +64,7 @@
 
 </div>
 
-**Live Demo:** [https://your-app.onrender.com](https://your-app.onrender.com) *(Update after deployment)*
+**Live Demo:** [https://qr-dine-15cf.onrender.com](https://qr-dine-15cf.onrender.com)
 
 ---
 
