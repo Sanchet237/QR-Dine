@@ -143,7 +143,7 @@ python manage.py runserver
 **Platform Administration Panel**
 
 ```
-URL:      http://127.0.0.1:8000/superadmin/
+URL:      https://qr-dine-15cf.onrender.com/superadmin/
 Email:    admin@qrdine.com
 Password: admin123
 ```
@@ -162,7 +162,7 @@ Password: admin123
 **Restaurant Dashboard & Menu Management**
 
 ```
-URL:      http://127.0.0.1:8000/restaurants/dashboard/
+URL:      https://qr-dine-15cf.onrender.com/restaurants/dashboard/
 Email:    hotelsubedar@example.com
 Password: subedar@123
 ```
@@ -174,7 +174,7 @@ Password: subedar@123
 - ✅ Download QR code
 - ✅ View dashboard analytics
 
-**🍽️ View Public Menu:** [http://127.0.0.1:8000/menu/hotel-subedar/](http://127.0.0.1:8000/menu/hotel-subedar/)
+**🍽️ View Public Menu:** [https://qr-dine-15cf.onrender.com/menu/hotel-subedar/](https://qr-dine-15cf.onrender.com/menu/hotel-subedar/)
 
 </td>
 </tr>
