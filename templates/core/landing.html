@@ -1,0 +1,1874 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}QRDine — Smart QR Menu System for Restaurants{% endblock %}
+
+{% block og_title %}QRDine — Digital Menus via QR Code{% endblock %}
+{% block og_description %}Create a digital menu for your restaurant in minutes. Customers scan, browse, and order — no
+app needed.{% endblock %}
+
+{% block body %}
+
+<!-- ============================================================
+     NAVIGATION
+============================================================ -->
+<nav id="navbar" style="
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(13, 13, 13, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  transition: all 0.3s ease;
+">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 24px;
+              display: flex; align-items: center; justify-content: space-between;
+              height: 64px;">
+
+    <!-- Logo -->
+    <a href="/" style="display:flex; align-items:center; text-decoration:none;">
+      <img src="{% static 'images/Logo.png' %}" alt="QRDine Logo"
+        style="height: 50px; width: auto; object-fit: contain;">
+    </a>
+
+    <!-- Desktop nav -->
+    <div style="display:flex; align-items:center; gap:32px;" class="nav-links">
+      <a href="#features"
+        style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.875rem; font-weight:500; transition:color 0.2s;"
+        onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">Features</a>
+      <a href="#how-it-works"
+        style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.875rem; font-weight:500; transition:color 0.2s;"
+        onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">How It Works</a>
+      <a href="#about"
+        style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.875rem; font-weight:500; transition:color 0.2s;"
+        onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">About</a>
+      <a href="#contact"
+        style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.875rem; font-weight:500; transition:color 0.2s;"
+        onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">Contact</a>
+      <a href="https://github.com/Sanchet237/QR-Dine" target="_blank"
+        style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.875rem; font-weight:500; transition:color 0.2s;"
+        onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">
+        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+        </svg>
+        GitHub
+      </a>
+    </div>
+
+    <!-- CTA buttons -->
+    <div style="display:flex; align-items:center; gap:12px;">
+      <a href="{% url 'accounts:login' %}" style="
+        color: rgba(255,255,255,0.8); text-decoration:none;
+        font-size:0.875rem; font-weight:500;
+        padding: 8px 16px; border-radius:8px;
+        border: 1px solid rgba(255,255,255,0.2);
+        transition: all 0.2s;
+      " onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.color='white'"
+        onmouseout="this.style.background='transparent'; this.style.color='rgba(255,255,255,0.8)'">
+        Sign In
+      </a>
+      <a href="{% url 'accounts:register' %}" style="
+        background: #10B981; color: white; text-decoration:none;
+        font-size:0.875rem; font-weight:600;
+        padding: 9px 20px; border-radius:9px;
+        transition: all 0.2s; letter-spacing:-0.01em;
+      " onmouseover="this.style.background='#0EA472'; this.style.transform='translateY(-1px)'"
+        onmouseout="this.style.background='#10B981'; this.style.transform='translateY(0)'">
+        Get Started Free
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ============================================================
+     HERO SECTION
+============================================================ -->
+<section style="
+  background: #054D3A;
+  min-height: 100vh;
+  padding-top: 64px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+">
+
+  <!-- Dot grid texture overlay -->
+  <div style="
+    position:absolute; inset:0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events:none;
+  "></div>
+
+  <!-- Glow blobs -->
+  <div style="position:absolute; top:-100px; right:-100px; width:500px; height:500px;
+              background:radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%);
+              pointer-events:none;"></div>
+  <div style="position:absolute; bottom:-150px; left:-100px; width:400px; height:400px;
+              background:radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%);
+              pointer-events:none;"></div>
+
+  <div class="hero-grid" style="max-width:1200px; margin:0 auto; padding:80px 24px 80px;
+              display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;
+              width:100%; position:relative; z-index:1;">
+
+    <!-- Left: Copy -->
+    <div class="hero-text" style="animation: fadeUp 0.7s ease both;">
+
+      <!-- Trust badge -->
+      <div style="
+        display:inline-flex; align-items:center; gap:8px;
+        background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.3);
+        border-radius:100px; padding:6px 14px; margin-bottom:28px;
+      ">
+        <span style="width:6px;height:6px;border-radius:50%;background:#10B981;
+                     animation:pulse 2s infinite;"></span>
+        <span
+          style="font-size:0.75rem; color:#6EE7B7; font-weight:500; letter-spacing:0.05em; text-transform:uppercase;">
+          Live — restaurants using QRDine today
+        </span>
+      </div>
+
+      <h1 style="
+        font-family:'Instrument Serif', serif;
+        font-size: clamp(2.8rem, 5vw, 4.2rem);
+        color: white;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        margin-bottom: 24px;
+      ">
+        Your restaurant menu,<br>
+        <em style="color:#6EE7B7;">always in their hands.</em>
+      </h1>
+
+      <p style="
+        font-size:1.1rem; color:rgba(255,255,255,0.6);
+        line-height:1.75; max-width:480px; margin-bottom:36px;
+        font-weight:300;
+      ">
+        Create a beautiful digital menu in minutes. Place a QR code on every table.
+        Customers scan and browse instantly — no app, no login, no friction.
+      </p>
+
+      <!-- CTA group -->
+      <div style="display:flex; gap:14px; flex-wrap:wrap; margin-bottom:44px;">
+        <a href="{% url 'accounts:register' %}" style="
+          display:inline-flex; align-items:center; gap:8px;
+          background:#10B981; color:white; text-decoration:none;
+          font-size:1rem; font-weight:600; padding:14px 28px;
+          border-radius:12px; transition:all 0.25s; letter-spacing:-0.01em;
+        " onmouseover="this.style.background='#0EA472'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 30px rgba(16,185,129,0.35)'"
+          onmouseout="this.style.background='#10B981'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+          Register Your Restaurant
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </a>
+        <a href="{% url 'accounts:login' %}" style="
+          display:inline-flex; align-items:center; gap:8px;
+          border:1.5px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.8);
+          text-decoration:none; font-size:1rem; font-weight:500;
+          padding:14px 28px; border-radius:12px; transition:all 0.25s;
+        " onmouseover="this.style.borderColor='rgba(255,255,255,0.5)'; this.style.color='white'"
+          onmouseout="this.style.borderColor='rgba(255,255,255,0.2)'; this.style.color='rgba(255,255,255,0.8)'">
+          Sign In
+        </a>
+      </div>
+
+      <!-- Trust indicators -->
+      <div style="display:flex; align-items:center; gap:24px; flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <svg width="16" height="16" fill="#10B981" viewBox="0 0 20 20">
+            <path fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd" />
+          </svg>
+          <span style="font-size:0.8rem; color:rgba(255,255,255,0.5);">No credit card required</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <svg width="16" height="16" fill="#10B981" viewBox="0 0 20 20">
+            <path fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd" />
+          </svg>
+          <span style="font-size:0.8rem; color:rgba(255,255,255,0.5);">Live in under 5 minutes</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <svg width="16" height="16" fill="#10B981" viewBox="0 0 20 20">
+            <path fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd" />
+          </svg>
+          <span style="font-size:0.8rem; color:rgba(255,255,255,0.5);">Free to start</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Visual Mockup -->
+    <div class="hero-phone"
+      style="position:relative; animation: fadeUp 0.7s 0.2s ease both; opacity:0; animation-fill-mode:both;">
+
+      <!-- Glow behind phone -->
+      <div style="
+        position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+        width:320px; height:320px;
+        background:radial-gradient(circle, rgba(16,185,129,0.25) 0%, transparent 70%);
+        pointer-events:none;
+      "></div>
+
+      <!-- Phone frame -->
+      <div style="
+        background:#0D0D0D; border-radius:40px;
+        border:2px solid rgba(255,255,255,0.1);
+        padding:12px; max-width:280px; margin:0 auto;
+        box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+        position:relative;
+      ">
+        <!-- Notch -->
+        <div style="width:60px;height:6px;background:rgba(255,255,255,0.1);border-radius:10px;margin:0 auto 10px;">
+        </div>
+
+        <!-- Screen content -->
+        <div style="background:#0A0A0A; border-radius:28px; padding:16px; overflow:hidden;">
+
+          <!-- Restaurant header -->
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+            <div style="width:36px;height:36px;border-radius:10px;background:#054D3A;
+                        display:flex;align-items:center;justify-content:center;">
+              <span style="color:white;font-size:0.9rem;font-family:'Instrument Serif',serif;font-weight:bold;">B</span>
+            </div>
+            <div>
+              <p style="color:white;font-size:0.8rem;font-weight:600;line-height:1.2;">The Bistro</p>
+              <p style="color:rgba(255,255,255,0.4);font-size:0.65rem;">Mumbai, MH</p>
+            </div>
+          </div>
+
+          <!-- Search bar mockup -->
+          <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:8px 10px;
+                      display:flex;align-items:center;gap:6px;margin-bottom:12px;">
+            <svg width="12" height="12" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8" />
+              <path d="M21 21l-4.35-4.35" />
+            </svg>
+            <span style="color:rgba(255,255,255,0.25);font-size:0.65rem;">Search menu…</span>
+          </div>
+
+          <!-- Category pills -->
+          <div style="display:flex;gap:6px;margin-bottom:12px;overflow:hidden;">
+            <span
+              style="background:#10B981;color:white;font-size:0.6rem;padding:4px 10px;border-radius:100px;font-weight:600;white-space:nowrap;">All</span>
+            <span
+              style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5);font-size:0.6rem;padding:4px 10px;border-radius:100px;white-space:nowrap;">Starters</span>
+            <span
+              style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5);font-size:0.6rem;padding:4px 10px;border-radius:100px;white-space:nowrap;">Mains</span>
+          </div>
+
+          <!-- Menu item cards -->
+          {% for _ in "12" %}
+          <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:10px;
+                      display:flex;gap:10px;margin-bottom:8px;align-items:center;">
+            <div
+              style="width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,#054D3A,#10B981);flex-shrink:0;">
+            </div>
+            <div style="flex:1;">
+              <div style="height:7px;background:rgba(255,255,255,0.15);border-radius:4px;margin-bottom:5px;width:75%;">
+              </div>
+              <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:4px;width:55%;margin-bottom:6px;">
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="color:#10B981;font-size:0.7rem;font-weight:700;">₹240</span>
+                <span
+                  style="background:rgba(16,185,129,0.15);color:#6EE7B7;font-size:0.55rem;padding:2px 6px;border-radius:100px;">Available</span>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+          <!-- QR at bottom -->
+          <div
+            style="background:white;border-radius:10px;padding:8px;display:flex;align-items:center;gap:8px;margin-top:4px;">
+            <div style="width:36px;height:36px;flex-shrink:0;">
+              <!-- Mini QR SVG -->
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="36" height="36" rx="4" fill="white" />
+                <rect x="3" y="3" width="14" height="14" rx="2" fill="#054D3A" />
+                <rect x="6" y="6" width="8" height="8" fill="white" />
+                <rect x="8" y="8" width="4" height="4" fill="#054D3A" />
+                <rect x="19" y="3" width="14" height="14" rx="2" fill="#054D3A" />
+                <rect x="22" y="6" width="8" height="8" fill="white" />
+                <rect x="24" y="8" width="4" height="4" fill="#054D3A" />
+                <rect x="3" y="19" width="14" height="14" rx="2" fill="#054D3A" />
+                <rect x="6" y="22" width="8" height="8" fill="white" />
+                <rect x="8" y="24" width="4" height="4" fill="#054D3A" />
+                <rect x="19" y="19" width="4" height="4" fill="#054D3A" />
+                <rect x="25" y="19" width="4" height="4" fill="#054D3A" />
+                <rect x="19" y="25" width="4" height="4" fill="#054D3A" />
+                <rect x="25" y="25" width="8" height="8" rx="2" fill="#054D3A" />
+              </svg>
+            </div>
+            <div>
+              <p style="font-size:0.65rem;font-weight:600;color:#0D0D0D;line-height:1.2;">Scan to view menu</p>
+              <p style="font-size:0.55rem;color:#6B7280;font-family:'DM Mono',monospace;">qrdine.app/menu/the-bistro</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating badge — "Updated live" -->
+      <div style="
+        position:absolute; top:20px; right:-20px;
+        background:white; border-radius:12px; padding:10px 14px;
+        box-shadow:0 8px 30px rgba(0,0,0,0.2);
+        display:flex; align-items:center; gap:8px;
+        animation: float 3s ease-in-out infinite;
+      ">
+        <div style="width:8px;height:8px;border-radius:50%;background:#10B981;"></div>
+        <span style="font-size:0.75rem;font-weight:600;color:#0D0D0D;white-space:nowrap;">Menu updated live</span>
+      </div>
+
+      <!-- Floating badge — "No app needed" -->
+      <div style="
+        position:absolute; bottom:40px; left:-30px;
+        background:#10B981; border-radius:12px; padding:10px 14px;
+        box-shadow:0 8px 30px rgba(16,185,129,0.4);
+        animation: float 3s 1.5s ease-in-out infinite;
+      ">
+        <span style="font-size:0.75rem;font-weight:600;color:white;white-space:nowrap;">📱 No app needed</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom wave -->
+  <div style="position:absolute;bottom:0;left:0;right:0;overflow:hidden;line-height:0;">
+    <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+      style="width:100%;height:60px;display:block;">
+      <path d="M0,40 C360,80 1080,0 1440,40 L1440,60 L0,60 Z" fill="#F9F7F3" />
+    </svg>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     STATS BAND
+============================================================ -->
+<section style="background:#F9F7F3; padding:40px 24px; border-bottom:1px solid #E5E2DA;">
+  <div
+    style="max-width:1000px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:24px; text-align:center;"
+    class="stat-grid">
+
+    <div class="stat-card" style="padding:20px;">
+      <p
+        style="font-family:'Instrument Serif',serif; font-size:2.5rem; color:#054D3A; line-height:1; margin-bottom:6px;">
+        40+
+      </p>
+      <p style="font-size:0.85rem; color:#6B7280; font-weight:500;">Restaurants registered</p>
+    </div>
+
+    <div class="stat-card" style="padding:20px;">
+      <p
+        style="font-family:'Instrument Serif',serif; font-size:2.5rem; color:#054D3A; line-height:1; margin-bottom:6px;">
+        500+
+      </p>
+      <p style="font-size:0.85rem; color:#6B7280; font-weight:500;">Menu items live</p>
+    </div>
+
+    <div class="stat-card" style="padding:20px;">
+      <p
+        style="font-family:'Instrument Serif',serif; font-size:2.5rem; color:#054D3A; line-height:1; margin-bottom:6px;">
+        &lt;5 min</p>
+      <p style="font-size:0.85rem; color:#6B7280; font-weight:500;">To go live</p>
+    </div>
+
+    <div class="stat-card" style="padding:20px;">
+      <p
+        style="font-family:'Instrument Serif',serif; font-size:2.5rem; color:#054D3A; line-height:1; margin-bottom:6px;">
+        ₹0</p>
+      <p style="font-size:0.85rem; color:#6B7280; font-weight:500;">To get started</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FEATURES SECTION
+============================================================ -->
+<section id="features" style="background:#F9F7F3; padding:100px 24px; position:relative; overflow:hidden;">
+
+  <!-- Floating QR Code Background Decoration -->
+  <svg
+    style="position:absolute; top:50px; right:-80px; width:350px; height:350px; opacity:0.04; transform:rotate(15deg); pointer-events:none;"
+    viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="10" y="10" width="15" height="15" fill="#054D3A" />
+    <rect x="30" y="10" width="5" height="5" fill="#054D3A" />
+    <rect x="40" y="10" width="5" height="5" fill="#054D3A" />
+    <rect x="50" y="10" width="5" height="5" fill="#054D3A" />
+    <rect x="60" y="10" width="5" height="5" fill="#054D3A" />
+    <rect x="75" y="10" width="15" height="15" fill="#054D3A" />
+    <rect x="10" y="13" width="9" height="9" fill="#F9F7F3" />
+    <rect x="78" y="13" width="9" height="9" fill="#F9F7F3" />
+    <rect x="10" y="30" width="5" height="5" fill="#054D3A" />
+    <rect x="20" y="30" width="5" height="5" fill="#054D3A" />
+    <rect x="30" y="30" width="15" height="5" fill="#054D3A" />
+    <rect x="50" y="35" width="10" height="5" fill="#054D3A" />
+    <rect x="65" y="30" width="5" height="10" fill="#054D3A" />
+    <rect x="40" y="45" width="20" height="20" fill="#054D3A" />
+    <rect x="43" y="48" width="14" height="14" fill="#F9F7F3" />
+    <rect x="10" y="75" width="15" height="15" fill="#054D3A" />
+    <rect x="13" y="78" width="9" height="9" fill="#F9F7F3" />
+    <rect x="30" y="75" width="5" height="5" fill="#054D3A" />
+    <rect x="40" y="80" width="5" height="5" fill="#054D3A" />
+    <rect x="75" y="75" width="15" height="15" fill="#054D3A" />
+    <rect x="78" y="78" width="9" height="9" fill="#F9F7F3" />
+    <rect x="50" y="75" width="5" height="15" fill="#054D3A" />
+  </svg>
+
+  <svg
+    style="position:absolute; bottom:100px; left:-100px; width:300px; height:300px; opacity:0.035; transform:rotate(-20deg); pointer-events:none;"
+    viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="10" y="10" width="15" height="15" fill="#10B981" />
+    <rect x="30" y="10" width="5" height="5" fill="#10B981" />
+    <rect x="75" y="10" width="15" height="15" fill="#10B981" />
+    <rect x="13" y="13" width="9" height="9" fill="#F9F7F3" />
+    <rect x="78" y="13" width="9" height="9" fill="#F9F7F3" />
+    <rect x="40" y="40" width="20" height="20" fill="#10B981" />
+    <rect x="43" y="43" width="14" height="14" fill="#F9F7F3" />
+    <rect x="10" y="75" width="15" height="15" fill="#10B981" />
+    <rect x="13" y="78" width="9" height="9" fill="#F9F7F3" />
+    <rect x="75" y="75" width="15" height="15" fill="#10B981" />
+    <rect x="78" y="78" width="9" height="9" fill="#F9F7F3" />
+  </svg>
+
+  <svg
+    style="position:absolute; top:40%; left:5%; width:250px; height:250px; opacity:0.03; transform:rotate(25deg); pointer-events:none;"
+    viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="10" y="10" width="15" height="15" fill="#054D3A" />
+    <rect x="75" y="10" width="15" height="15" fill="#054D3A" />
+    <rect x="13" y="13" width="9" height="9" fill="#F9F7F3" />
+    <rect x="78" y="13" width="9" height="9" fill="#F9F7F3" />
+    <rect x="40" y="40" width="20" height="20" fill="#054D3A" />
+    <rect x="43" y="43" width="14" height="14" fill="#F9F7F3" />
+    <rect x="10" y="75" width="15" height="15" fill="#054D3A" />
+    <rect x="75" y="75" width="15" height="15" fill="#054D3A" />
+    <rect x="13" y="78" width="9" height="9" fill="#F9F7F3" />
+  </svg>
+
+  <svg
+    style="position:absolute; top:15%; left:50%; transform:translateX(-50%) rotate(-15deg); width:220px; height:220px; opacity:0.025; pointer-events:none;"
+    viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="10" y="10" width="15" height="15" fill="#10B981" />
+    <rect x="75" y="10" width="15" height="15" fill="#10B981" />
+    <rect x="13" y="13" width="9" height="9" fill="#F9F7F3" />
+    <rect x="78" y="13" width="9" height="9" fill="#F9F7F3" />
+    <rect x="40" y="40" width="20" height="20" fill="#10B981" />
+    <rect x="43" y="43" width="14" height="14" fill="#F9F7F3" />
+    <rect x="10" y="75" width="15" height="15" fill="#10B981" />
+    <rect x="75" y="75" width="15" height="15" fill="#10B981" />
+  </svg>
+
+  <div style="max-width:1200px; margin:0 auto; position:relative; z-index:2;">
+
+    <!-- Section header -->
+    <div style="text-align:center; margin-bottom:80px;">
+      <p style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em;
+                color:#10B981; font-weight:600; margin-bottom:12px;">Features</p>
+      <h2 style="font-family:'Instrument Serif',serif; font-size:clamp(2rem,4vw,3rem);
+                 color:#0D0D0D; line-height:1.15; letter-spacing:-0.02em; margin-bottom:16px;">
+        Everything your restaurant needs.<br>
+        <em style="color:#054D3A;">Nothing it doesn't.</em>
+      </h2>
+    </div>
+
+    <!-- Features Grid (2x3) -->
+    <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:32px; max-width:1100px; margin:0 auto;">
+
+      <!-- Feature 1: Instant QR Code -->
+      <div style="background:white; border-radius:24px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.08); 
+                  border:2px solid #10B981; transition:all 0.3s ease; text-align:center;"
+        onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 12px 35px rgba(16,185,129,0.2)'"
+        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(0,0,0,0.08)'">
+        <div style="width:80px; height:80px; background:#DCFCE7; border-radius:50%; 
+                    display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">
+          <svg width="36" height="36" fill="none" stroke="#054D3A" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+          </svg>
+        </div>
+        <h4 style="font-size:1.2rem; color:#0D0D0D; font-weight:600; margin:0 0 10px 0;">Instant QR Code</h4>
+        <p style="font-size:0.875rem; color:#6B7280; line-height:1.5; margin:0;">
+          Your QR code is ready the second you register. Print it, stick it on tables. Done. Customers scan with their
+          phone camera—that's it.
+        </p>
+      </div>
+
+      <!-- Feature 2: Real-Time Updates -->
+      <div style="background:white; border-radius:24px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.08); 
+                  border:2px solid #10B981; transition:all 0.3s ease; text-align:center;"
+        onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 12px 35px rgba(16,185,129,0.2)'"
+        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(0,0,0,0.08)'">
+        <div style="width:80px; height:80px; background:#DCFCE7; border-radius:50%; 
+                    display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">
+          <svg width="36" height="36" fill="none" stroke="#054D3A" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        <h4 style="font-size:1.2rem; color:#0D0D0D; font-weight:600; margin:0 0 10px 0;">Real-Time Updates</h4>
+        <p style="font-size:0.875rem; color:#6B7280; line-height:1.5; margin:0;">
+          Ran out of butter chicken? Mark it unavailable from your phone. Price changed? Update it instantly. Your menu
+          stays current without reprinting a single page.
+        </p>
+      </div>
+
+      <!-- Feature 3: Mobile-First Design -->
+      <div style="background:white; border-radius:24px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.08); 
+                  border:2px solid #10B981; transition:all 0.3s ease; text-align:center;"
+        onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 12px 35px rgba(16,185,129,0.2)'"
+        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(0,0,0,0.08)'">
+        <div style="width:80px; height:80px; background:#DCFCE7; border-radius:50%; 
+                    display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">
+          <svg width="36" height="36" fill="none" stroke="#054D3A" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <h4 style="font-size:1.2rem; color:#0D0D0D; font-weight:600; margin:0 0 10px 0;">Mobile-First Design</h4>
+        <p style="font-size:0.875rem; color:#6B7280; line-height:1.5; margin:0;">
+          Works on any phone, loads super fast. Clean design that makes browsing easy. Your customers won't need help
+          figuring it out.
+        </p>
+      </div>
+
+      <!-- Feature 4: Smart Categories -->
+      <div style="background:white; border-radius:24px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.08); 
+                  border:2px solid #10B981; transition:all 0.3s ease; text-align:center;"
+        onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 12px 35px rgba(16,185,129,0.2)'"
+        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(0,0,0,0.08)'">
+        <div style="width:80px; height:80px; background:#DCFCE7; border-radius:50%; 
+                    display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">
+          <svg width="36" height="36" fill="none" stroke="#054D3A" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+          </svg>
+        </div>
+        <h4 style="font-size:1.2rem; color:#0D0D0D; font-weight:600; margin:0 0 10px 0;">Smart Categories</h4>
+        <p style="font-size:0.875rem; color:#6B7280; line-height:1.5; margin:0;">
+          Sort dishes your way—starters, mains, desserts, drinks. Add filters for veg/non-veg. Let customers search for
+          what they want. Simple.
+        </p>
+      </div>
+
+      <!-- Feature 5: Photo Uploads -->
+      <div style="background:white; border-radius:24px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.08); 
+                  border:2px solid #10B981; transition:all 0.3s ease; text-align:center;"
+        onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 12px 35px rgba(16,185,129,0.2)'"
+        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(0,0,0,0.08)'">
+        <div style="width:80px; height:80px; background:#DCFCE7; border-radius:50%; 
+                    display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">
+          <svg width="36" height="36" fill="none" stroke="#054D3A" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <h4 style="font-size:1.2rem; color:#0D0D0D; font-weight:600; margin:0 0 10px 0;">Photo Uploads</h4>
+        <p style="font-size:0.875rem; color:#6B7280; line-height:1.5; margin:0;">
+          Snap photos of your dishes and upload them straight from your phone. Pictures sell food better than words ever
+          will.
+        </p>
+      </div>
+
+      <!-- Feature 6: Contactless & Hygienic -->
+      <div style="background:white; border-radius:24px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.08); 
+                  border:2px solid #10B981; transition:all 0.3s ease; text-align:center;"
+        onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 12px 35px rgba(16,185,129,0.2)'"
+        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(0,0,0,0.08)'">
+        <div style="width:80px; height:80px; background:#DCFCE7; border-radius:50%; 
+                    display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">
+          <svg width="36" height="36" fill="none" stroke="#054D3A" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+        </div>
+        <h4 style="font-size:1.2rem; color:#0D0D0D; font-weight:600; margin:0 0 10px 0;">Contactless & Hygienic</h4>
+        <p style="font-size:0.875rem; color:#6B7280; line-height:1.5; margin:0;">
+          No more grimy menu cards passed around all day. Everyone views the menu on their own phone. Cleaner for you,
+          safer for them.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ============================================================
+     HOW IT WORKS
+============================================================ -->
+  <section id="how-it-works" style="background:#0D0D0D; padding:100px 24px; position:relative; overflow:hidden;">
+
+    <!-- Top wave -->
+    <div style="position:absolute;top:0;left:0;right:0;overflow:hidden;line-height:0;">
+      <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+        style="width:100%;height:60px;display:block;">
+        <path d="M0,20 C360,60 1080,-20 1440,20 L1440,0 L0,0 Z" fill="#F9F7F3" />
+      </svg>
+    </div>
+
+    <!-- Background texture -->
+    <div
+      style="position:absolute;inset:0;background-image:radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);background-size:32px 32px;pointer-events:none;">
+    </div>
+
+    <div style="max-width:1200px; margin:0 auto; position:relative; z-index:1;">
+
+      <div style="text-align:center; margin-bottom:72px;">
+        <p style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em;
+                color:#10B981; font-weight:600; margin-bottom:12px;">The Process</p>
+        <h2 style="font-family:'Instrument Serif',serif; font-size:clamp(2rem,4vw,3rem);
+                 color:white; line-height:1.15; letter-spacing:-0.02em;">
+          Up and running in <em style="color:#10B981;">four steps.</em>
+        </h2>
+      </div>
+
+      <!-- Steps -->
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; align-items:start; position:relative;"
+        class="steps-grid">
+
+        <!-- White dotted connecting line between circles -->
+        <div
+          style="position:absolute;top:28px;left:10%;right:10%;height:0;border-top:2px dotted rgba(255,255,255,0.25);z-index:0;">
+        </div>
+
+        <!-- Step 1 -->
+        <div style="text-align:center; padding:0 16px; position:relative; z-index:1;">
+          <div
+            style="width:56px;height:56px;border-radius:50%;
+                    background:linear-gradient(145deg, #ffffff, #e8e8e8);
+                    border:2px solid rgba(255,255,255,0.3);
+                    display:flex;align-items:center;justify-content:center;
+                    margin:0 auto 20px; font-family:'DM Mono',monospace;
+                    font-size:0.8rem;color:#0D0D0D;font-weight:600;
+                    box-shadow:0 8px 20px rgba(0,0,0,0.3), inset 0 -2px 6px rgba(0,0,0,0.1), inset 0 2px 6px rgba(255,255,255,0.5);">
+            01</div>
+          <h3 style="font-family:'Instrument Serif',serif;font-size:1.1rem;color:white;margin-bottom:8px;">Register Free
+          </h3>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.45);line-height:1.65;font-weight:300;">Sign up with your
+            restaurant name, email, and address. Takes under 2 minutes.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div style="text-align:center; padding:0 16px; position:relative; z-index:1;">
+          <div
+            style="width:56px;height:56px;border-radius:50%;
+                    background:linear-gradient(145deg, #ffffff, #e8e8e8);
+                    border:2px solid rgba(255,255,255,0.3);
+                    display:flex;align-items:center;justify-content:center;
+                    margin:0 auto 20px; font-family:'DM Mono',monospace;
+                    font-size:0.8rem;color:#0D0D0D;font-weight:600;
+                    box-shadow:0 8px 20px rgba(0,0,0,0.3), inset 0 -2px 6px rgba(0,0,0,0.1), inset 0 2px 6px rgba(255,255,255,0.5);">
+            02</div>
+          <h3 style="font-family:'Instrument Serif',serif;font-size:1.1rem;color:white;margin-bottom:8px;">Build Your
+            Menu</h3>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.45);line-height:1.65;font-weight:300;">Add categories,
+            upload photos, set prices, and write descriptions from your dashboard.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div style="text-align:center; padding:0 16px; position:relative; z-index:1;">
+          <div
+            style="width:56px;height:56px;border-radius:50%;
+                    background:linear-gradient(145deg, #ffffff, #e8e8e8);
+                    border:2px solid rgba(255,255,255,0.3);
+                    display:flex;align-items:center;justify-content:center;
+                    margin:0 auto 20px; font-family:'DM Mono',monospace;
+                    font-size:0.8rem;color:#0D0D0D;font-weight:600;
+                    box-shadow:0 8px 20px rgba(0,0,0,0.3), inset 0 -2px 6px rgba(0,0,0,0.1), inset 0 2px 6px rgba(255,255,255,0.5);">
+            03</div>
+          <h3 style="font-family:'Instrument Serif',serif;font-size:1.1rem;color:white;margin-bottom:8px;">Download QR
+            Code</h3>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.45);line-height:1.65;font-weight:300;">Your unique QR
+            code is ready instantly. Print it and place it on every table and entrance.</p>
+        </div>
+
+        <!-- Step 4 -->
+        <div style="text-align:center; padding:0 16px; position:relative; z-index:1;">
+          <div
+            style="width:56px;height:56px;border-radius:50%;
+                    background:linear-gradient(145deg, #ffffff, #e8e8e8);
+                    border:2px solid rgba(255,255,255,0.3);
+                    display:flex;align-items:center;justify-content:center;
+                    margin:0 auto 20px; font-family:'DM Mono',monospace;
+                    font-size:0.8rem;color:#0D0D0D;font-weight:600;
+                    box-shadow:0 8px 20px rgba(0,0,0,0.3), inset 0 -2px 6px rgba(0,0,0,0.1), inset 0 2px 6px rgba(255,255,255,0.5);">
+            04</div>
+          <h3 style="font-family:'Instrument Serif',serif;font-size:1.1rem;color:white;margin-bottom:8px;">Customers
+            Browse</h3>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.45);line-height:1.65;font-weight:300;">Guests scan with
+            any camera. Your full menu opens instantly — no app, no login, no waiting.</p>
+        </div>
+      </div>
+
+      <!-- CTA inside section -->
+      <div style="text-align:center; margin-top:64px;">
+        <a href="{% url 'accounts:register' %}" style="
+        display:inline-flex; align-items:center; gap:10px;
+        background:#10B981; color:white; text-decoration:none;
+        font-size:0.95rem; font-weight:600; padding:14px 30px;
+        border-radius:12px; transition:all 0.25s; letter-spacing:-0.01em;
+      " onmouseover="this.style.background='#0EA472'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 30px rgba(16,185,129,0.35)'"
+          onmouseout="this.style.background='#10B981'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+          Start building your menu
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Bottom wave -->
+    <div style="position:absolute;bottom:0;left:0;right:0;overflow:hidden;line-height:0;">
+      <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+        style="width:100%;height:60px;display:block;">
+        <path d="M0,40 C360,80 1080,0 1440,40 L1440,60 L0,60 Z" fill="#F9F7F3" />
+      </svg>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+     TESTIMONIALS / SOCIAL PROOF
+============================================================ -->
+  <section style="background:#F9F7F3; padding:100px 24px;">
+    <div style="max-width:1100px; margin:0 auto;">
+
+      <div style="text-align:center; margin-bottom:56px; animation:fadeUp 0.8s ease-out;">
+        <p style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em;
+                color:#10B981; font-weight:600; margin-bottom:12px;">Trusted By Restaurants</p>
+        <h2 style="font-family:'Instrument Serif',serif; font-size:clamp(1.8rem,3.5vw,2.6rem);
+                 color:#0D0D0D; line-height:1.2; letter-spacing:-0.02em;">
+          What restaurant owners are saying
+        </h2>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;" class="testimonials-grid">
+
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card" style="
+        background:white;
+        border-radius:20px;
+        padding:32px;
+        border:1px solid #E5E2DA;
+        animation:testimonialFadeIn 0.6s ease-out 0.1s both;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position:relative;
+        overflow:hidden;
+      ">
+          <!-- Subtle gradient background -->
+          <div
+            style="position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 30%, rgba(16,185,129,0.03), transparent 50%);pointer-events:none;">
+          </div>
+
+          <div style="position:relative;z-index:1;">
+            <div class="star-container" style="display:flex;gap:4px;margin-bottom:20px;">
+              {% for i in "12345" %}
+              <svg class="star-icon star-icon-{{ forloop.counter }}" width="16" height="16" fill="#10B981"
+                viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              {% endfor %}
+            </div>
+            <p
+              style="font-size:0.95rem;color:#374151;line-height:1.8;margin-bottom:24px;font-style:italic;font-weight:300;">
+              "We put up the QR code on day one and haven't touched our printed menus since. Updating prices used to
+              take a day — now it takes 10 seconds."
+            </p>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div
+                style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg, #10B981, #059669);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(16,185,129,0.2);">
+                <span style="color:white;font-weight:600;font-size:0.9rem;">R</span>
+              </div>
+              <div>
+                <p style="font-size:0.875rem;font-weight:600;color:#0D0D0D;margin-bottom:2px;">Rahul Sharma</p>
+                <p style="font-size:0.75rem;color:#6B7280;">Owner, Sharma's Kitchen — Pune</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card" style="
+        background:white;
+        border-radius:20px;
+        padding:32px;
+        border:1px solid #E5E2DA;
+        animation:testimonialFadeIn 0.6s ease-out 0.2s both;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position:relative;
+        overflow:hidden;
+      ">
+          <!-- Subtle gradient background -->
+          <div
+            style="position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 70% 30%, rgba(16,185,129,0.04), transparent 50%);pointer-events:none;">
+          </div>
+
+          <div style="position:relative;z-index:1;">
+            <div class="star-container" style="display:flex;gap:4px;margin-bottom:20px;">
+              {% for i in "12345" %}
+              <svg class="star-icon star-icon-{{ forloop.counter }}" width="16" height="16" fill="#10B981"
+                viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              {% endfor %}
+            </div>
+            <p
+              style="font-size:0.95rem;color:#374151;line-height:1.8;margin-bottom:24px;font-style:italic;font-weight:300;">
+              "My customers love it. They can see the photos of every dish before ordering. We've seen fewer order
+              mistakes and better customer satisfaction."
+            </p>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div
+                style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg, #10B981, #059669);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(16,185,129,0.2);">
+                <span style="color:white;font-weight:600;font-size:0.9rem;">P</span>
+              </div>
+              <div>
+                <p style="font-size:0.875rem;font-weight:600;color:#0D0D0D;margin-bottom:2px;">Priya Nair</p>
+                <p style="font-size:0.75rem;color:#6B7280;">Manager, The Spice Route — Bangalore</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="testimonial-card" style="
+        background:white;
+        border-radius:20px;
+        padding:32px;
+        border:1px solid #E5E2DA;
+        animation:testimonialFadeIn 0.6s ease-out 0.3s both;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position:relative;
+        overflow:hidden;
+      ">
+          <!-- Subtle gradient background -->
+          <div
+            style="position:absolute;bottom:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 70%, rgba(16,185,129,0.03), transparent 50%);pointer-events:none;">
+          </div>
+
+          <div style="position:relative;z-index:1;">
+            <div class="star-container" style="display:flex;gap:4px;margin-bottom:20px;">
+              {% for i in "12345" %}
+              <svg class="star-icon star-icon-{{ forloop.counter }}" width="16" height="16" fill="#10B981"
+                viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              {% endfor %}
+            </div>
+            <p
+              style="font-size:0.95rem;color:#374151;line-height:1.8;margin-bottom:24px;font-style:italic;font-weight:300;">
+              "Setup was shockingly simple. I registered, added my 30-item menu with photos, and had the QR code up on
+              tables — all in one afternoon. No technical knowledge needed."
+            </p>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div
+                style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg, #10B981, #059669);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(16,185,129,0.2);">
+                <span style="color:white;font-weight:600;font-size:0.9rem;">A</span>
+              </div>
+              <div>
+                <p style="font-size:0.875rem;font-weight:600;color:#0D0D0D;margin-bottom:2px;">Arjun Mehta</p>
+                <p style="font-size:0.75rem;color:#6B7280;">Owner, Mehta's Café — Mumbai</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+     ABOUT SECTION
+============================================================ -->
+  <section id="about"
+    style="background:#F9F7F3; padding:100px 24px; border-top:1px solid #E5E2DA; position:relative; overflow:hidden;">
+
+    <!-- Floating QR Code Background Decoration -->
+    <svg
+      style="position:absolute; top:-50px; left:50%; transform:translateX(-50%) rotate(8deg); width:400px; height:400px; opacity:0.03; pointer-events:none;"
+      viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="10" width="15" height="15" fill="#054D3A" />
+      <rect x="30" y="10" width="5" height="5" fill="#054D3A" />
+      <rect x="40" y="10" width="5" height="5" fill="#054D3A" />
+      <rect x="50" y="10" width="5" height="5" fill="#054D3A" />
+      <rect x="60" y="10" width="5" height="5" fill="#054D3A" />
+      <rect x="75" y="10" width="15" height="15" fill="#054D3A" />
+      <rect x="10" y="13" width="9" height="9" fill="#F9F7F3" />
+      <rect x="78" y="13" width="9" height="9" fill="#F9F7F3" />
+      <rect x="10" y="30" width="5" height="5" fill="#054D3A" />
+      <rect x="20" y="30" width="5" height="5" fill="#054D3A" />
+      <rect x="30" y="30" width="15" height="5" fill="#054D3A" />
+      <rect x="50" y="35" width="10" height="5" fill="#054D3A" />
+      <rect x="65" y="30" width="5" height="10" fill="#054D3A" />
+      <rect x="40" y="45" width="20" height="20" fill="#054D3A" />
+      <rect x="43" y="48" width="14" height="14" fill="#F9F7F3" />
+      <rect x="10" y="75" width="15" height="15" fill="#054D3A" />
+      <rect x="13" y="78" width="9" height="9" fill="#F9F7F3" />
+      <rect x="30" y="75" width="5" height="5" fill="#054D3A" />
+      <rect x="40" y="80" width="5" height="5" fill="#054D3A" />
+      <rect x="75" y="75" width="15" height="15" fill="#054D3A" />
+      <rect x="78" y="78" width="9" height="9" fill="#F9F7F3" />
+      <rect x="50" y="75" width="5" height="15" fill="#054D3A" />
+    </svg>
+
+    <svg
+      style="position:absolute; bottom:80px; right:40px; width:280px; height:280px; opacity:0.04; transform:rotate(-12deg); pointer-events:none;"
+      viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="10" width="15" height="15" fill="#10B981" />
+      <rect x="75" y="10" width="15" height="15" fill="#10B981" />
+      <rect x="13" y="13" width="9" height="9" fill="#F9F7F3" />
+      <rect x="78" y="13" width="9" height="9" fill="#F9F7F3" />
+      <rect x="40" y="40" width="20" height="20" fill="#10B981" />
+      <rect x="43" y="43" width="14" height="14" fill="#F9F7F3" />
+      <rect x="10" y="75" width="15" height="15" fill="#10B981" />
+      <rect x="75" y="75" width="15" height="15" fill="#10B981" />
+      <rect x="13" y="78" width="9" height="9" fill="#F9F7F3" />
+      <rect x="78" y="78" width="9" height="9" fill="#F9F7F3" />
+    </svg>
+
+    <svg
+      style="position:absolute; bottom:140px; left:-60px; width:260px; height:260px; opacity:0.035; transform:rotate(18deg); pointer-events:none;"
+      viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="10" width="15" height="15" fill="#054D3A" />
+      <rect x="75" y="10" width="15" height="15" fill="#054D3A" />
+      <rect x="13" y="13" width="9" height="9" fill="#F9F7F3" />
+      <rect x="78" y="13" width="9" height="9" fill="#F9F7F3" />
+      <rect x="40" y="40" width="20" height="20" fill="#054D3A" />
+      <rect x="43" y="43" width="14" height="14" fill="#F9F7F3" />
+      <rect x="10" y="75" width="15" height="15" fill="#054D3A" />
+      <rect x="75" y="75" width="15" height="15" fill="#054D3A" />
+    </svg>
+
+    <svg
+      style="position:absolute; top:50%; right:-50px; width:240px; height:240px; opacity:0.03; transform:translateY(-50%) rotate(-25deg); pointer-events:none;"
+      viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="10" width="15" height="15" fill="#10B981" />
+      <rect x="75" y="10" width="15" height="15" fill="#10B981" />
+      <rect x="13" y="13" width="9" height="9" fill="#F9F7F3" />
+      <rect x="78" y="13" width="9" height="9" fill="#F9F7F3" />
+      <rect x="40" y="40" width="20" height="20" fill="#10B981" />
+      <rect x="43" y="43" width="14" height="14" fill="#F9F7F3" />
+      <rect x="10" y="75" width="15" height="15" fill="#10B981" />
+      <rect x="75" y="75" width="15" height="15" fill="#10B981" />
+      <rect x="13" y="78" width="9" height="9" fill="#F9F7F3" />
+    </svg>
+
+    <div
+      style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; position:relative; z-index:2;"
+      class="about-grid">
+
+      <!-- Left: About copy -->
+      <div>
+        <p style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em;
+                color:#10B981; font-weight:600; margin-bottom:12px;">About QRDine</p>
+        <h2 style="font-family:'Instrument Serif',serif; font-size:clamp(1.8rem,3.5vw,2.8rem);
+                 color:#0D0D0D; line-height:1.2; letter-spacing:-0.02em; margin-bottom:20px;">
+          Built for the restaurant<br>owner, not the IT team.
+        </h2>
+        <p style="font-size:0.95rem; color:#6B7280; line-height:1.8; margin-bottom:18px; font-weight:300;">
+          QRDine was born from a simple frustration — restaurants were spending thousands on reprinting menus every
+          season, and customers were handling the same laminated cards as everyone else.
+        </p>
+        <p style="font-size:0.95rem; color:#6B7280; line-height:1.8; margin-bottom:18px; font-weight:300;">
+          We built a platform that any restaurant owner can set up in an afternoon, without a developer, without a
+          designer, and without a monthly agency bill.
+        </p>
+        <p style="font-size:0.95rem; color:#6B7280; line-height:1.8; font-weight:300;">
+          Your food is the star. We just make it easier for your customers to find it.
+        </p>
+
+        <!-- Values -->
+        <div style="margin-top:32px; display:flex; flex-direction:column; gap:14px;">
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div
+              style="width:20px;height:20px;border-radius:50%;background:#DCFCE7;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;">
+              <svg width="10" height="10" fill="#054D3A" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clip-rule="evenodd" />
+              </svg>
+            </div>
+            <p style="font-size:0.875rem;color:#374151;line-height:1.6;"><strong style="color:#0D0D0D;">Simple by
+                design.</strong> If a restaurant owner can't figure it out in 5 minutes, we've failed.</p>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div
+              style="width:20px;height:20px;border-radius:50%;background:#DCFCE7;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;">
+              <svg width="10" height="10" fill="#054D3A" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clip-rule="evenodd" />
+              </svg>
+            </div>
+            <p style="font-size:0.875rem;color:#374151;line-height:1.6;"><strong style="color:#0D0D0D;">Free to
+                start.</strong> No credit card, no trial period. Register and go live for free.</p>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div
+              style="width:20px;height:20px;border-radius:50%;background:#DCFCE7;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;">
+              <svg width="10" height="10" fill="#054D3A" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clip-rule="evenodd" />
+              </svg>
+            </div>
+            <p style="font-size:0.875rem;color:#374151;line-height:1.6;"><strong
+                style="color:#0D0D0D;">Customer-first.</strong> Your menu page loads fast, looks great, and works on
+              every phone.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Visual card -->
+      <div>
+        <div style="
+        background:#054D3A; border-radius:24px; padding:36px;
+        position:relative; overflow:hidden;
+      ">
+          <!-- Background texture -->
+          <div
+            style="position:absolute;inset:0;background-image:radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);background-size:24px 24px;pointer-events:none;">
+          </div>
+
+          <div style="position:relative; z-index:1;">
+            <p style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em;
+                    color:#6EE7B7; font-weight:600; margin-bottom:24px;">Your menu URL</p>
+
+            <div style="background:rgba(0,0,0,0.3); border-radius:12px; padding:16px 20px; margin-bottom:20px;">
+              <p style="font-family:'DM Mono',monospace; font-size:0.85rem; color:#6EE7B7; margin-bottom:4px;">
+                qrdine.app/menu/</p>
+              <p style="font-family:'DM Mono',monospace; font-size:1.1rem; color:white; font-weight:500;">
+                your-restaurant-name</p>
+            </div>
+
+            <p
+              style="font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.6;margin-bottom:24px;font-weight:300;">
+              A clean, permanent URL for your restaurant's menu. Share it anywhere — WhatsApp, Instagram bio, email
+              signatures, or let the QR code do the talking.
+            </p>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div
+                style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:14px;">
+                <p
+                  style="font-family:'Instrument Serif',serif;font-size:1.6rem;color:white;line-height:1;margin-bottom:4px;">
+                  100%</p>
+                <p style="font-size:0.75rem;color:rgba(255,255,255,0.45);">Mobile optimised</p>
+              </div>
+              <div
+                style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:14px;">
+                <p
+                  style="font-family:'Instrument Serif',serif;font-size:1.6rem;color:white;line-height:1;margin-bottom:4px;">
+                  0ms</p>
+                <p style="font-size:0.75rem;color:rgba(255,255,255,0.45);">Login required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+     FINAL CTA SECTION
+============================================================ -->
+  <section id="contact" style="background:#0D0D0D; padding:80px 24px; position:relative; overflow:hidden;">
+
+    <!-- Top wave -->
+    <div style="position:absolute;top:0;left:0;right:0;overflow:hidden;line-height:0;">
+      <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+        style="width:100%;height:60px;display:block;">
+        <path d="M0,20 C360,60 1080,-20 1440,20 L1440,0 L0,0 Z" fill="#F9F7F3" />
+      </svg>
+    </div>
+
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+              width:600px;height:600px;
+              background:radial-gradient(circle, rgba(5,77,58,0.4) 0%, transparent 70%);
+              pointer-events:none;"></div>
+
+    <div
+      style="max-width:1200px; margin:0 auto; position:relative; z-index:1; display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center;"
+      class="cta-grid">
+
+      <!-- Left: CTA Content -->
+      <div>
+        <p style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em;
+                color:#10B981; font-weight:600; margin-bottom:14px;">Get started today</p>
+        <h2 style="font-family:'Instrument Serif',serif; font-size:clamp(2rem,5vw,3.2rem);
+                 color:white; line-height:1.1; letter-spacing:-0.02em; margin-bottom:16px;">
+          Your restaurant deserves<br>a <em style="color:#10B981;">better menu.</em>
+        </h2>
+        <p
+          style="font-size:0.95rem; color:rgba(255,255,255,0.5); line-height:1.7; margin-bottom:32px; font-weight:300;">
+          Register in 2 minutes. Build your menu. Get your QR code.<br>
+          No technical knowledge required. No credit card. Forever free to start.
+        </p>
+
+        <a href="{% url 'accounts:register' %}" style="
+        display:inline-flex; align-items:center; gap:10px;
+        background:#10B981; color:white; text-decoration:none;
+        font-size:1rem; font-weight:600; padding:14px 32px;
+        border-radius:12px; transition:all 0.25s; letter-spacing:-0.01em;
+      " onmouseover="this.style.background='#0EA472'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 16px 40px rgba(16,185,129,0.35)'"
+          onmouseout="this.style.background='#10B981'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+          Register Your Restaurant — It's Free
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Right: Contact Form -->
+      <div
+        style="background:rgba(255,255,255,0.05); backdrop-filter:blur(10px); border-radius:16px; padding:28px; border:1px solid rgba(255,255,255,0.1);">
+        <div style="margin-bottom:20px; text-align:center;">
+          <p style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.12em;
+                  color:#10B981; font-weight:600; margin-bottom:6px;">Contact Us</p>
+          <h3
+            style="font-family:'Instrument Serif',serif; font-size:1.5rem; color:white; line-height:1.2; letter-spacing:-0.01em;">
+            Feedback & Suggestions
+          </h3>
+          <p style="font-size:0.8rem; color:rgba(255,255,255,0.4); margin-top:6px; font-weight:300;">
+            We'd love to hear from you.
+          </p>
+        </div>
+
+        <form action="#" method="POST" style="display:flex; flex-direction:column; gap:12px;">
+          {% csrf_token %}
+
+          <!-- Name -->
+          <div>
+            <label
+              style="display:block; font-size:0.75rem; color:rgba(255,255,255,0.6); margin-bottom:5px; font-weight:500;">
+              Your Name
+            </label>
+            <input type="text" name="name" required style="width:100%; padding:10px 14px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15);
+                        border-radius:8px; color:white; font-size:0.85rem; transition:all 0.2s;" placeholder="John Doe"
+              onfocus="this.style.background='rgba(255,255,255,0.12)'; this.style.borderColor='rgba(16,185,129,0.4)'"
+              onblur="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(255,255,255,0.15)'">
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label
+              style="display:block; font-size:0.75rem; color:rgba(255,255,255,0.6); margin-bottom:5px; font-weight:500;">
+              Email Address
+            </label>
+            <input type="email" name="email" required style="width:100%; padding:10px 14px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15);
+                        border-radius:8px; color:white; font-size:0.85rem; transition:all 0.2s;"
+              placeholder="john@restaurant.com"
+              onfocus="this.style.background='rgba(255,255,255,0.12)'; this.style.borderColor='rgba(16,185,129,0.4)'"
+              onblur="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(255,255,255,0.15)'">
+          </div>
+
+          <!-- Message Type -->
+          <div>
+            <label
+              style="display:block; font-size:0.75rem; color:rgba(255,255,255,0.6); margin-bottom:5px; font-weight:500;">
+              Type
+            </label>
+            <select name="type" required style="width:100%; padding:10px 14px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15);
+                         border-radius:8px; color:white; font-size:0.85rem; transition:all 0.2s; cursor:pointer;"
+              onfocus="this.style.background='rgba(255,255,255,0.12)'; this.style.borderColor='rgba(16,185,129,0.4)'"
+              onblur="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(255,255,255,0.15)'">
+              <option value="feedback" style="background:#0D0D0D; color:white;">Feedback</option>
+              <option value="suggestion" style="background:#0D0D0D; color:white;">Suggestion</option>
+              <option value="support" style="background:#0D0D0D; color:white;">Support</option>
+              <option value="other" style="background:#0D0D0D; color:white;">Other</option>
+            </select>
+          </div>
+
+          <!-- Message -->
+          <div>
+            <label
+              style="display:block; font-size:0.75rem; color:rgba(255,255,255,0.6); margin-bottom:5px; font-weight:500;">
+              Message
+            </label>
+            <textarea name="message" rows="3" required
+              style="width:100%; padding:10px 14px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15);
+                           border-radius:8px; color:white; font-size:0.85rem; resize:vertical; transition:all 0.2s; font-family:'Outfit',sans-serif;"
+              placeholder="Tell us what you think..."
+              onfocus="this.style.background='rgba(255,255,255,0.12)'; this.style.borderColor='rgba(16,185,129,0.4)'"
+              onblur="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(255,255,255,0.15)'"></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" style="
+          width:100%; padding:12px 20px; background:#10B981; color:white;
+          font-size:0.9rem; font-weight:600; border-radius:8px;
+          border:none; cursor:pointer; transition:all 0.25s; letter-spacing:-0.01em; margin-top:4px;
+        " onmouseover="this.style.background='#0EA472'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 20px rgba(16,185,129,0.3)'"
+            onmouseout="this.style.background='#10B981'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+            Send Message
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+     FOOTER
+============================================================ -->
+  <footer style="background:#0A0A0A; border-top:1px solid rgba(255,255,255,0.06); padding:64px 24px 32px;">
+    <div style="max-width:1200px; margin:0 auto;">
+
+      <!-- Top row -->
+      <div style="display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; margin-bottom:56px;"
+        class="footer-grid">
+
+        <!-- Brand col -->
+        <div>
+          <div style="display:flex;align-items:center;margin-bottom:16px;">
+            <img src="{% static 'images/Logo.png' %}" alt="QRDine Logo"
+              style="height: 45px; width: auto; object-fit: contain;">
+          </div>
+          <p style="font-size:0.85rem;color:rgba(255,255,255,0.35);line-height:1.75;max-width:280px;font-weight:300;">
+            The smart QR menu system for restaurants. Create digital menus, generate QR codes, and let customers browse
+            instantly.
+          </p>
+          <p style="font-size:0.8rem;color:rgba(255,255,255,0.2);margin-top:20px;">
+            Made with care for restaurant owners everywhere.
+          </p>
+        </div>
+
+        <!-- Product col -->
+        <div>
+          <p
+            style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);font-weight:600;margin-bottom:16px;">
+            Product</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <a href="{% url 'accounts:register' %}"
+              style="font-size:0.85rem;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s;"
+              onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">Register</a>
+            <a href="{% url 'accounts:login' %}"
+              style="font-size:0.85rem;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s;"
+              onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">Sign In</a>
+            <a href="#features"
+              style="font-size:0.85rem;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s;"
+              onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">Features</a>
+            <a href="#how-it-works"
+              style="font-size:0.85rem;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s;"
+              onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">How It
+              Works</a>
+          </div>
+        </div>
+
+        <!-- Company col -->
+        <div>
+          <p
+            style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);font-weight:600;margin-bottom:16px;">
+            Company</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <a href="#about"
+              style="font-size:0.85rem;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s;"
+              onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">About</a>
+            <a href="#"
+              style="font-size:0.85rem;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s;"
+              onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">Contact</a>
+            <a href="https://github.com/Sanchet237" target="_blank"
+              style="font-size:0.85rem;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s;"
+              onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">GitHub</a>
+          </div>
+        </div>
+
+        <!-- Legal col -->
+        <div>
+          <p
+            style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);font-weight:600;margin-bottom:16px;">
+            Legal</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <a href="{% url 'core:terms' %}"
+              style="font-size:0.85rem;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s;"
+              onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">Terms of
+              Service</a>
+            <a href="{% url 'core:privacy' %}"
+              style="font-size:0.85rem;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s;"
+              onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">Privacy
+              Policy</a>
+          </div>
+        </div>
+
+        <!-- Social col -->
+        <div>
+          <p
+            style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);font-weight:600;margin-bottom:16px;">
+            Social</p>
+          <div style="display:flex;gap:12px;">
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/sanchet-kolekar-613916331/" target="_blank" title="LinkedIn"
+              style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all 0.2s;border:1px solid rgba(255,255,255,0.08);"
+              onmouseover="this.style.background='rgba(255,255,255,0.1)';this.style.borderColor='rgba(16,185,129,0.3)'"
+              onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.borderColor='rgba(255,255,255,0.08)'">
+              <svg width="16" height="16" fill="rgba(255,255,255,0.5)" viewBox="0 0 24 24">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+            </a>
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/sanchetkolekar/" target="_blank" title="Instagram"
+              style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all 0.2s;border:1px solid rgba(255,255,255,0.08);"
+              onmouseover="this.style.background='rgba(255,255,255,0.1)';this.style.borderColor='rgba(16,185,129,0.3)'"
+              onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.borderColor='rgba(255,255,255,0.08)'">
+              <svg width="16" height="16" fill="rgba(255,255,255,0.5)" viewBox="0 0 24 24">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+              </svg>
+            </a>
+            <!-- GitHub -->
+            <a href="https://github.com/Sanchet237" target="_blank" title="GitHub"
+              style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all 0.2s;border:1px solid rgba(255,255,255,0.08);"
+              onmouseover="this.style.background='rgba(255,255,255,0.1)';this.style.borderColor='rgba(16,185,129,0.3)'"
+              onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.borderColor='rgba(255,255,255,0.08)'">
+              <svg width="16" height="16" fill="rgba(255,255,255,0.5)" viewBox="0 0 24 24">
+                <path
+                  d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+              </svg>
+            </a>
+            <!-- Email -->
+            <a href="mailto:Sanchetkolekar.07@gmail.com" title="Email"
+              style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all 0.2s;border:1px solid rgba(255,255,255,0.08);"
+              onmouseover="this.style.background='rgba(255,255,255,0.1)';this.style.borderColor='rgba(16,185,129,0.3)'"
+              onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.borderColor='rgba(255,255,255,0.08)'">
+              <svg width="16" height="16" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:28px;
+                display:flex;flex-direction:column;align-items:center;justify-content:center;
+                text-align:center;gap:10px;flex-wrap:wrap;">
+        <p style="font-size:0.8rem;color:rgba(255,255,255,0.2);">
+          © 2026 QRDine. Digital menus made simple. &nbsp;|&nbsp; Built by <a
+            href="https://www.linkedin.com/in/sanchet-kolekar-613916331/" target="_blank"
+            style="color:rgba(16,185,129,0.7);text-decoration:none;font-weight:500;"
+            onmouseover="this.style.color='#10B981'" onmouseout="this.style.color='rgba(16,185,129,0.7)'">Sanchet
+            Kolekar</a>
+        </p>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="width:6px;height:6px;border-radius:50%;background:#10B981;"></span>
+          <p style="font-size:0.8rem;color:rgba(255,255,255,0.2);">All systems operational</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+     CSS ANIMATIONS
+============================================================ -->
+  <style>
+    /* Viewport fitting */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.4;
+      }
+    }
+
+    @keyframes slowRotate {
+      from {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    @keyframes featureAppear {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes ringPulse {
+
+      0%,
+      100% {
+        opacity: 0.3;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    @keyframes orbitRotate {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes flowLine {
+      0% {
+        width: 0;
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 1;
+      }
+
+      100% {
+        width: 90%;
+        opacity: 0;
+      }
+    }
+
+    @keyframes testimonialFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes starPop {
+      0% {
+        opacity: 0;
+        transform: scale(0) rotate(-180deg);
+      }
+
+      60% {
+        transform: scale(1.2) rotate(10deg);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    /* Star animation classes with delays */
+    .star-icon {
+      animation: starPop 0.4s ease-out both;
+    }
+
+    .star-icon-1 {
+      animation-delay: 200ms;
+    }
+
+    .star-icon-2 {
+      animation-delay: 300ms;
+    }
+
+    .star-icon-3 {
+      animation-delay: 400ms;
+    }
+
+    .star-icon-4 {
+      animation-delay: 500ms;
+    }
+
+    .star-icon-5 {
+      animation-delay: 600ms;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.2);
+    }
+
+    /* Circular Ring Animations */
+    .feature-ring-container>svg circle:last-child {
+      animation: ringPulse 4s ease-in-out infinite;
+    }
+
+    /* Orbital Movement */
+    .features-ring {
+      position: relative;
+      width: 700px;
+      height: 700px;
+      margin: auto;
+      animation: orbitRotate 60s linear infinite;
+      transform-origin: center center;
+    }
+
+    /* Feature Node Styling */
+    .feature-node {
+      width: 150px;
+      height: 150px;
+      background: white;
+      border-radius: 50%;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      border: 3px solid #10B981;
+      transition: all 0.3s ease;
+      animation: nodeFloat 6s ease-in-out infinite;
+    }
+
+    .feature-node:hover {
+      transform: scale(1.08) !important;
+      box-shadow: 0 20px 50px rgba(16, 185, 129, 0.3);
+    }
+
+    @keyframes nodeFloat {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    /* Perfect 60° Distribution with Rotate + Translate */
+    .feature-item {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-origin: 0 0;
+    }
+
+    .orbit-item {
+      animation: featureAppear 0.6s ease-out forwards, orbitRotate 60s linear infinite reverse;
+      opacity: 0;
+    }
+
+    /* Position features at 60° intervals around circle */
+    .feature-item:nth-child(2) {
+      transform: rotate(0deg) translate(300px) rotate(0deg);
+    }
+
+    .feature-item:nth-child(3) {
+      transform: rotate(60deg) translate(300px) rotate(-60deg);
+    }
+
+    .feature-item:nth-child(4) {
+      transform: rotate(120deg) translate(300px) rotate(-120deg);
+    }
+
+    .feature-item:nth-child(5) {
+      transform: rotate(180deg) translate(300px) rotate(-180deg);
+    }
+
+    .feature-item:nth-child(6) {
+      transform: rotate(240deg) translate(300px) rotate(-240deg);
+    }
+
+    .feature-item:nth-child(7) {
+      transform: rotate(300deg) translate(300px) rotate(-300deg);
+    }
+
+    .orbit-item:nth-child(2) {
+      animation-delay: 0.1s, 0s;
+    }
+
+    .orbit-item:nth-child(3) {
+      animation-delay: 0.2s, 0s;
+    }
+
+    .orbit-item:nth-child(4) {
+      animation-delay: 0.3s, 0s;
+    }
+
+    .orbit-item:nth-child(5) {
+      animation-delay: 0.4s, 0s;
+    }
+
+    .orbit-item:nth-child(6) {
+      animation-delay: 0.5s, 0s;
+    }
+
+    .orbit-item:nth-child(7) {
+      animation-delay: 0.6s, 0s;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .hero-phone {
+        display: none !important;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 20px !important;
+      }
+
+      .steps-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 32px !important;
+      }
+
+      .steps-grid .flow-line {
+        display: none !important;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+      }
+
+      .cta-grid {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+      }
+
+      .nav-links {
+        display: none !important;
+      }
+
+      .hero-text h1 {
+        font-size: 2.5rem !important;
+      }
+
+      .hero-grid {
+        padding: 60px 20px !important;
+      }
+
+      /* Circular ring adjustments for tablets */
+      .features-ring {
+        width: 550px !important;
+        height: 550px !important;
+      }
+
+      .feature-ring-container {
+        padding: 40px 20px !important;
+      }
+
+      .feature-ring-container>div:first-of-type {
+        width: 240px !important;
+        height: 240px !important;
+        padding: 30px !important;
+      }
+
+      .feature-ring-container img {
+        height: 65px !important;
+      }
+
+      .feature-ring-container p {
+        font-size: 0.8rem !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .testimonials-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr !important;
+      }
+
+      .stat-grid {
+        grid-template-columns: 1fr 1fr !important;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+      }
+
+      /* Hide circular ring, show simplified layout */
+      .features-ring {
+        display: none !important;
+        animation: none !important;
+      }
+
+      .feature-ring-container>svg {
+        display: none !important;
+      }
+
+      .feature-ring-container {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 30px !important;
+        padding: 20px !important;
+      }
+
+      .feature-ring-container>div:first-of-type {
+        position: static !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: 320px !important;
+        height: auto !important;
+        padding: 40px 30px !important;
+        border-radius: 24px !important;
+      }
+
+      /* Show mobile features */
+      .mobile-features {
+        display: flex !important;
+      }
+
+      /* Disable orbit animation on mobile */
+      .orbit-item {
+        animation: none !important;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .steps-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .hero-text h1 {
+        font-size: 2rem !important;
+        line-height: 1.2 !important;
+      }
+
+      .hero-text p {
+        font-size: 1rem !important;
+      }
+
+      .hero-grid {
+        padding: 40px 16px !important;
+      }
+
+      section {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+      }
+
+      /* Mobile adjustments for center circle */
+      .feature-ring-container>div:first-of-type {
+        padding: 30px 20px !important;
+      }
+
+      .feature-ring-container img {
+        height: 60px !important;
+        margin-bottom: 16px !important;
+      }
+
+      .feature-ring-container p {
+        font-size: 0.85rem !important;
+        line-height: 1.6 !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-text h1 {
+        font-size: 1.75rem !important;
+      }
+
+      .hero-text p {
+        font-size: 0.95rem !important;
+        margin-bottom: 28px !important;
+      }
+
+      .hero-text>div:last-child span {
+        font-size: 0.7rem !important;
+      }
+    }
+  </style>
+
+  <!-- Smooth scroll offset for fixed nav -->
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const offset = 80;
+          const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+
+  {% endblock %}

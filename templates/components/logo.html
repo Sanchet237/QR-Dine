@@ -1,0 +1,46 @@
+{# Reusable Logo Component #}
+{% load static %}
+
+<svg width="220" height="60" viewBox="0 0 220 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="{% if logo_style %}{{ logo_style }}{% endif %}">
+  <!-- Background Circle -->
+  <circle cx="30" cy="30" r="26" fill="{% if qr_bg %}{{ qr_bg }}{% else %}#10B981{% endif %}" stroke="{% if qr_stroke %}{{ qr_stroke }}{% else %}#059669{% endif %}" stroke-width="2"/>
+  
+  <!-- QR Code Pattern (integrated with utensils) -->
+  <g id="qr-pattern">
+    <!-- Top left block -->
+    <rect x="14" y="14" width="8" height="8" rx="1.5" fill="{% if qr_fg %}{{ qr_fg }}{% else %}white{% endif %}"/>
+    <!-- Top right block -->
+    <rect x="38" y="14" width="8" height="8" rx="1.5" fill="{% if qr_fg %}{{ qr_fg }}{% else %}white{% endif %}"/>
+    <!-- Bottom left block -->
+    <rect x="14" y="38" width="8" height="8" rx="1.5" fill="{% if qr_fg %}{{ qr_fg }}{% else %}white{% endif %}"/>
+    <!-- Bottom right block -->
+    <rect x="38" y="38" width="8" height="8" rx="1.5" fill="{% if qr_fg %}{{ qr_fg }}{% else %}white{% endif %}"/>
+    
+    <!-- Center pattern with utensils integrated -->
+    <rect x="26" y="18" width="4" height="4" rx="0.5" fill="{% if qr_fg %}{{ qr_fg }}{% else %}white{% endif %}"/>
+    <rect x="32" y="18" width="4" height="4" rx="0.5" fill="{% if qr_fg %}{{ qr_fg }}{% else %}white{% endif %}"/>
+    <rect x="24" y="38" width="4" height="4" rx="0.5" fill="{% if qr_fg %}{{ qr_fg }}{% else %}white{% endif %}"/>
+    <rect x="32" y="38" width="4" height="4" rx="0.5" fill="{% if qr_fg %}{{ qr_fg }}{% else %}white{% endif %}"/>
+  </g>
+  
+  <!-- Fork (integrated in center-left of QR) -->
+  <g id="fork" transform="translate(19, 22)">
+    <path d="M 0 0 L 0 8 Q 0 10 1.5 10 L 2.5 10 L 2.5 16 Q 2.5 17 3.5 17 Q 4.5 17 4.5 16 L 4.5 10 L 5.5 10 Q 7 10 7 8 L 7 0" 
+          fill="{% if qr_fg %}{{ qr_fg }}{% else %}white{% endif %}" 
+          stroke="none"/>
+  </g>
+  
+  <!-- Spoon (integrated in center-right of QR) -->
+  <g id="spoon" transform="translate(30, 22)">
+    <ellipse cx="3.5" cy="4" rx="3.5" ry="4.5" 
+             fill="{% if qr_fg %}{{ qr_fg }}{% else %}white{% endif %}" 
+             stroke="none"/>
+    <rect x="2" y="7" width="3" height="10" rx="1.5" 
+          fill="{% if qr_fg %}{{ qr_fg }}{% else %}white{% endif %}" 
+          stroke="none"/>
+  </g>
+  
+  <!-- Text: QRDine -->
+  <text x="68" y="40" font-family="'Baloo Bhai 2', cursive" font-size="32" font-weight="700" 
+        fill="{% if text_color %}{{ text_color }}{% else %}#0D0D0D{% endif %}" letter-spacing="-1">QRDine</text>
+</svg>

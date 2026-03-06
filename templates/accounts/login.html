@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Sign In — QRDine{% endblock %}
+
+{% block body %}
+<style>
+  /* Floating QR Code Animation */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    25% { transform: translateY(-20px) rotate(5deg); }
+    50% { transform: translateY(-10px) rotate(-5deg); }
+    75% { transform: translateY(-25px) rotate(3deg); }
+  }
+  
+  @keyframes floatReverse {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    25% { transform: translateY(15px) rotate(-3deg); }
+    50% { transform: translateY(5px) rotate(4deg); }
+    75% { transform: translateY(20px) rotate(-2deg); }
+  }
+  
+  .qr-float {
+    position: absolute;
+    opacity: 0.08;
+    pointer-events: none;
+    animation: float 15s ease-in-out infinite;
+  }
+  
+  .qr-float:nth-child(2) {
+    animation: floatReverse 18s ease-in-out infinite;
+    animation-delay: -3s;
+  }
+  
+  .qr-float:nth-child(3) {
+    animation: float 20s ease-in-out infinite;
+    animation-delay: -6s;
+  }
+  
+  .qr-float:nth-child(4) {
+    animation: floatReverse 16s ease-in-out infinite;
+    animation-delay: -9s;
+  }
+  
+  /* Form styling */
+  .auth-container {
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #F9F7F3 0%, #E5E2DA 100%);
+    overflow: hidden;
+  }
+  
+  .form-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(16, 185, 129, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  }
+  
+  .input-wrapper {
+    position: relative;
+  }
+  
+  .password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6B7280;
+    transition: color 0.2s;
+  }
+  
+  .password-toggle:hover {
+    color: #10B981;
+  }
+  
+  input:focus {
+    outline: none;
+    border-color: #10B981 !important;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+  }
+</style>
+
+<div class="auth-container">
+  <!-- Floating QR Codes Background -->
+  <div class="qr-float" style="top: 10%; left: 8%; width: 180px; height: 180px;">
+    <svg viewBox="0 0 100 100" fill="#10B981">
+      <rect x="0" y="0" width="20" height="20"/><rect x="10" y="10" width="5" height="5" fill="#F9F7F3"/>
+      <rect x="25" y="0" width="5" height="5"/><rect x="35" y="0" width="5" height="5"/>
+      <rect x="50" y="0" width="5" height="5"/><rect x="60" y="0" width="5" height="5"/>
+      <rect x="80" y="0" width="20" height="20"/><rect x="90" y="10" width="5" height="5" fill="#F9F7F3"/>
+      <rect x="0" y="25" width="5" height="5"/><rect x="15" y="25" width="5" height="5"/>
+      <rect x="0" y="80" width="20" height="20"/><rect x="10" y="90" width="5" height="5" fill="#F9F7F3"/>
+      <rect x="25" y="80" width="5" height="5"/><rect x="40" y="85" width="5" height="5"/>
+      <rect x="55" y="80" width="5" height="5"/><rect x="70" y="85" width="5" height="5"/>
+      <rect x="85" y="25" width="5" height="5"/><rect x="95" y="25" width="5" height="5"/>
+    </svg>
+  </div>
+  
+  <div class="qr-float" style="top: 65%; right: 10%; width: 140px; height: 140px;">
+    <svg viewBox="0 0 100 100" fill="#059669">
+      <rect x="5" y="5" width="15" height="15"/><rect x="12" y="12" width="4" height="4" fill="#F9F7F3"/>
+      <rect x="25" y="5" width="4" height="4"/><rect x="35" y="8" width="4" height="4"/>
+      <rect x="80" y="5" width="15" height="15"/><rect x="87" y="12" width="4" height="4" fill="#F9F7F3"/>
+      <rect x="5" y="80" width="15" height="15"/><rect x="12" y="87" width="4" height="4" fill="#F9F7F3"/>
+      <rect x="50" y="45" width="8" height="8"/><rect x="65" y="50" width="4" height="4"/>
+    </svg>
+  </div>
+  
+  <div class="qr-float" style="top: 20%; right: 25%; width: 100px; height: 100px;">
+    <svg viewBox="0 0 100 100" fill="#054D3A">
+      <rect x="10" y="10" width="12" height="12"/><rect x="35" y="10" width="4" height="4"/>
+      <rect x="78" y="10" width="12" height="12"/><rect x="10" y="78" width="12" height="12"/>
+      <rect x="45" y="45" width="6" height="6"/>
+    </svg>
+  </div>
+  
+  <div class="qr-float" style="bottom: 15%; left: 18%; width: 120px; height: 120px;">
+    <svg viewBox="0 0 100 100" fill="#10B981">
+      <rect x="8" y="8" width="14" height="14"/><rect x="14" y="14" width="4" height="4" fill="#F9F7F3"/>
+      <rect x="78" y="8" width="14" height="14"/><rect x="30" y="12" width="4" height="4"/>
+      <rect x="8" y="78" width="14" height="14"/><rect x="50" y="50" width="6" height="6"/>
+    </svg>
+  </div>
+  
+  <!-- Main Content -->
+  <div style="position: relative; z-index: 10; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 48px 24px;">
+    <div style="width: 100%; max-width: 440px;">
+      
+      <!-- Logo & Header -->
+      <div style="text-align: center; margin-bottom: 40px;">
+        <a href="{% url 'core:landing' %}" style="display: inline-block; margin-bottom: 24px; transition: transform 0.3s;"
+           onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          <img src="{% static 'images/Auth_Logo.png' %}" alt="QRDine Logo" 
+               style="height: 80px; width: auto; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.08));">
+        </a>
+        <h1 style="font-family: 'Instrument Serif', serif; font-size: 2rem; color: #0D0D0D; margin-bottom: 8px; letter-spacing: -0.02em;">
+          Welcome Back
+        </h1>
+        <p style="font-size: 0.95rem; color: #6B7280; font-weight: 300;">
+          Sign in to manage your digital menu
+        </p>
+      </div>
+      
+      <!-- Login Form Card -->
+      <div class="form-card" style="border-radius: 24px; padding: 40px;">
+        <form method="post">
+          {% csrf_token %}
+          
+          {% if form.non_field_errors %}
+          <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); 
+                      color: #DC2626; padding: 14px 16px; border-radius: 12px; font-size: 0.875rem; margin-bottom: 24px;
+                      display: flex; align-items: center; gap: 10px;">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+            </svg>
+            <span>{{ form.non_field_errors.0 }}</span>
+          </div>
+          {% endif %}
+          
+          <!-- Email Field -->
+          <div style="margin-bottom: 24px;">
+            <label style="display: block; font-size: 0.875rem; font-weight: 500; color: #0D0D0D; margin-bottom: 8px;">
+              Email Address
+            </label>
+            <div class="input-wrapper">
+              {{ form.email }}
+            </div>
+            {% if form.email.errors %}
+            <p style="color: #EF4444; font-size: 0.75rem; margin-top: 6px;">{{ form.email.errors.0 }}</p>
+            {% endif %}
+          </div>
+          
+          <!-- Password Field -->
+          <div style="margin-bottom: 8px;">
+            <label style="display: block; font-size: 0.875rem; font-weight: 500; color: #0D0D0D; margin-bottom: 8px;">
+              Password
+            </label>
+            <div class="input-wrapper">
+              {{ form.password }}
+              <span class="password-toggle" onclick="togglePassword('id_password', this)">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="eye-open">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                </svg>
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="eye-closed" style="display:none;">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
+                </svg>
+              </span>
+            </div>
+            {% if form.password.errors %}
+            <p style="color: #EF4444; font-size: 0.75rem; margin-top: 6px;">{{ form.password.errors.0 }}</p>
+            {% endif %}
+          </div>
+          
+          <!-- Forgot Password Link -->
+          <div style="text-align: right; margin-bottom: 28px;">
+            <a href="#" style="font-size: 0.8rem; color: #10B981; text-decoration: none; font-weight: 500; transition: color 0.2s;"
+               onmouseover="this.style.color='#059669'" onmouseout="this.style.color='#10B981'">
+              Forgot password?
+            </a>
+          </div>
+          
+          <!-- Submit Button -->
+          <button type="submit" style="
+            width: 100%; background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white; font-weight: 600; font-size: 0.95rem; padding: 14px 24px;
+            border-radius: 12px; border: none; cursor: pointer;
+            transition: all 0.3s; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+          " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(16, 185, 129, 0.35)'"
+             onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(16, 185, 129, 0.25)'">
+            Sign In
+          </button>
+        </form>
+      </div>
+      
+      <!-- Register Link -->
+      <p style="text-align: center; font-size: 0.875rem; color: #6B7280; margin-top: 28px;">
+        Don't have an account?
+        <a href="{% url 'accounts:register' %}" style="color: #10B981; font-weight: 600; text-decoration: none; margin-left: 4px; transition: color 0.2s;"
+           onmouseover="this.style.color='#059669'" onmouseout="this.style.color='#10B981'">
+          Register your restaurant →
+        </a>
+      </p>
+      
+    </div>
+  </div>
+</div>
+
+<script>
+function togglePassword(fieldId, icon) {
+  const field = document.getElementById(fieldId);
+  const eyeOpen = icon.querySelector('.eye-open');
+  const eyeClosed = icon.querySelector('.eye-closed');
+  
+  if (field.type === 'password') {
+    field.type = 'text';
+    eyeOpen.style.display = 'none';
+    eyeClosed.style.display = 'block';
+  } else {
+    field.type = 'password';
+    eyeOpen.style.display = 'block';
+    eyeClosed.style.display = 'none';
+  }
+}
+</script>
+{% endblock %}

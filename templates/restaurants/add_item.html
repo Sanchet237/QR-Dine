@@ -1,0 +1,130 @@
+{% extends "base_dashboard.html" %}
+{% block title %}Add Menu Item — {{ restaurant.name }}{% endblock %}
+{% block page_title %}Add Menu Item{% endblock %}
+{% block page_subtitle %}
+  <p class="text-xs text-[#6B7280]">
+    <a href="{% url 'restaurants:menu_items' %}" class="hover:text-[#0A0A0A] transition-colors">← Back to Menu Items</a>
+  </p>
+{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="bg-white rounded-2xl border border-[#E7E7E0] p-6">
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    {% if form.non_field_errors %}
+    <div class="bg-red-50 text-red-600 p-3 rounded-lg text-sm mb-6">
+      {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {# Image Upload Section #}
+      <div class="lg:col-span-1">
+        <label class="block text-sm font-medium text-[#0A0A0A] mb-3">Item Image</label>
+        <div class="space-y-4">
+          <div id="imagePreview" class="relative w-full aspect-square rounded-2xl border-2 border-dashed border-[#E7E7E0] overflow-hidden bg-[#FAFAF7] flex items-center justify-center">
+            <div class="text-center p-6">
+              <svg class="w-16 h-16 mx-auto text-[#E7E7E0] mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              <p class="text-sm text-[#6B7280]">Upload image</p>
+            </div>
+          </div>
+          
+          {{ form.image }}
+          {% if form.image.errors %}
+          <p class="text-sm text-red-600">{{ form.image.errors.0 }}</p>
+          {% endif %}
+          <p class="text-xs text-[#6B7280]">Recommended: 800x600px or similar aspect ratio</p>
+        </div>
+      </div>
+      
+      {# Form Fields Section #}
+      <div class="lg:col-span-2 space-y-5">
+        <div>
+          <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-[#0A0A0A] mb-1.5">
+            Item Name <span class="text-red-500">*</span>
+          </label>
+          {{ form.name }}
+          {% if form.name.errors %}
+          <p class="mt-1 text-sm text-red-600">{{ form.name.errors.0 }}</p>
+          {% endif %}
+        </div>
+        
+        <div>
+          <label for="{{ form.description.id_for_label }}" class="block text-sm font-medium text-[#0A0A0A] mb-1.5">
+            Description
+          </label>
+          {{ form.description }}
+          {% if form.description.errors %}
+          <p class="mt-1 text-sm text-red-600">{{ form.description.errors.0 }}</p>
+          {% endif %}
+          <p class="mt-1 text-xs text-[#6B7280]">Ingredients, preparation method, or other details</p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="{{ form.price.id_for_label }}" class="block text-sm font-medium text-[#0A0A0A] mb-1.5">
+              Price <span class="text-red-500">*</span>
+            </label>
+            {{ form.price }}
+            {% if form.price.errors %}
+            <p class="mt-1 text-sm text-red-600">{{ form.price.errors.0 }}</p>
+            {% endif %}
+          </div>
+          
+          <div>
+            <label for="{{ form.category.id_for_label }}" class="block text-sm font-medium text-[#0A0A0A] mb-1.5">
+              Category
+            </label>
+            {{ form.category }}
+            {% if form.category.errors %}
+            <p class="mt-1 text-sm text-red-600">{{ form.category.errors.0 }}</p>
+            {% endif %}
+          </div>
+        </div>
+        
+        <div class="flex items-center gap-6 pt-4 border-t border-[#E7E7E0]">
+          <label class="relative inline-flex items-center cursor-pointer">
+            {{ form.is_available }}
+            <span class="ml-3 text-sm font-medium text-[#0A0A0A]">Available</span>
+          </label>
+          
+          <label class="relative inline-flex items-center cursor-pointer">
+            {{ form.is_vegetarian }}
+            <span class="ml-3 text-sm font-medium text-[#0A0A0A]">Vegetarian (Veg)</span>
+          </label>
+        </div>
+        <p class="text-xs text-[#6B7280] mt-2">Leave "Vegetarian" unchecked for Non-Veg items</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-3 pt-6 mt-6 border-t border-[#E7E7E0]">
+      <button type="submit" class="bg-[#059669] text-white px-6 py-2.5 rounded-xl font-medium hover:bg-[#064E3B] transition-colors">
+        Add Menu Item
+      </button>
+      <a href="{% url 'restaurants:menu_items' %}" class="text-[#6B7280] hover:text-[#0A0A0A] transition-colors px-4 py-2.5">
+        Cancel
+      </a>
+    </div>
+  </form>
+</div>
+
+<script>
+// Image preview
+document.querySelector('input[type="file"][name="image"]').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      const preview = document.getElementById('imagePreview');
+      preview.innerHTML = `<img src="${event.target.result}" alt="Preview" class="w-full h-full object-cover">`;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+</script>
+
+{% endblock %}

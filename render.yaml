@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: qrdine
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn qrdine.wsgi:application --bind 0.0.0.0:$PORT"
+    plan: free
+
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true        # Render auto-generates a secure secret
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: "qrdine.onrender.com"
+      - key: CSRF_TRUSTED_ORIGINS
+        value: "https://qrdine.onrender.com"
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+
+    disk:
+      name: qrdine-media
+      mountPath: /opt/render/project/src/media
+      sizeGB: 1

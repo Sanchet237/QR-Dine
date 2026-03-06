@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Server Error — QRDine{% endblock %}
+
+{% block body %}
+<div class="min-h-screen bg-[#FAFAF7] flex items-center justify-center px-6">
+  <div class="text-center">
+    <p class="text-8xl font-light text-[#E7E7E0]" style="font-family:'Fraunces',serif;">500</p>
+    <h1 class="text-2xl font-medium text-[#0A0A0A] mt-4 mb-2" style="font-family:'Fraunces',serif;">Something went wrong</h1>
+    <p class="text-[#6B7280] mb-8">We're working on it. Please try again shortly.</p>
+    <a href="/" 
+       class="inline-block bg-[#064E3B] text-white px-6 py-3 rounded-xl text-sm font-medium hover:bg-[#059669] transition-colors">
+      Back to Home
+    </a>
+  </div>
+</div>
+{% endblock %}

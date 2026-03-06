@@ -1,0 +1,134 @@
+{# templates/base_dashboard.html #}
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+
+{# Mobile overlay #}
+<div id="sidebar-overlay"
+     class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden"
+     onclick="closeSidebar()"></div>
+
+<div class="flex h-screen overflow-hidden bg-[#FAFAF7]">
+
+  {# ── SIDEBAR ────────────────────────────────── #}
+  <aside id="sidebar"
+         class="fixed lg:static inset-y-0 left-0 z-40
+                w-64 bg-[#0A0A0A] text-white flex flex-col
+                transform -translate-x-full lg:translate-x-0
+                transition-transform duration-300 ease-in-out flex-shrink-0">
+
+    {# Logo #}
+    <div class="px-5 py-5 border-b border-white/10 flex items-center justify-between">
+      <a href="{% if request.user.is_superadmin %}{% url 'superadmin:dashboard' %}{% else %}{% url 'restaurants:dashboard' %}{% endif %}"
+         class="flex items-center">
+        <img src="{% static 'images/Logo.png' %}" alt="QRDine Logo" style="height: 45px; width: auto; object-fit: contain;">
+      </a>
+      {# Close button mobile #}
+      <button onclick="closeSidebar()" class="lg:hidden text-white/50 hover:text-white p-1">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    {# Restaurant / admin badge #}
+    {% if request.user.is_authenticated %}
+    <div class="px-5 py-3.5 border-b border-white/10">
+      {% if request.user.is_superadmin %}
+        <p class="text-xs text-white/40 uppercase tracking-widest mb-0.5">Platform</p>
+        <p class="text-sm font-medium text-white">Super Admin</p>
+      {% elif request.user.restaurant %}
+        <p class="text-xs text-white/40 uppercase tracking-widest mb-0.5">Restaurant</p>
+        <p class="text-sm font-medium text-white truncate">{{ request.user.restaurant.name }}</p>
+        <span class="inline-block mt-1 text-xs px-2 py-0.5 rounded-full
+          {% if request.user.restaurant.is_active %}bg-emerald-500/20 text-emerald-400
+          {% else %}bg-red-500/20 text-red-400{% endif %}">
+          {% if request.user.restaurant.is_active %}Active{% else %}Inactive{% endif %}
+        </span>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    {# Navigation links #}
+    <nav class="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
+      {% if request.user.is_superadmin %}
+        {% include "superadmin/_sidebar_links.html" %}
+      {% else %}
+        {% include "restaurants/_sidebar_links.html" %}
+      {% endif %}
+    </nav>
+
+    {# User footer #}
+    <div class="px-4 py-4 border-t border-white/10">
+      <div class="flex items-center gap-2.5 mb-3">
+        <div class="w-8 h-8 rounded-full bg-[#064E3B] flex items-center justify-center
+                    text-sm font-semibold text-white flex-shrink-0">
+          {{ request.user.email|first|upper }}
+        </div>
+        <div class="min-w-0 flex-1">
+          <p class="text-xs text-white truncate">{{ request.user.email }}</p>
+          <p class="text-xs text-white/40">{{ request.user.get_role_display }}</p>
+        </div>
+      </div>
+      <a href="{% url 'accounts:logout' %}"
+         class="flex items-center gap-2 text-xs text-white/40 hover:text-white transition-colors w-full py-1">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+        </svg>
+        Sign out
+      </a>
+    </div>
+  </aside>
+
+  {# ── MAIN AREA ───────────────────────────────── #}
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+
+    {# Top bar #}
+    <header class="bg-white border-b border-[#E7E7E0] px-5 lg:px-8 py-4
+                   flex items-center gap-4 sticky top-0 z-20 flex-shrink-0">
+
+      {# Hamburger — mobile only #}
+      <button id="sidebar-toggle" onclick="openSidebar()"
+              class="lg:hidden text-[#6B7280] hover:text-[#0A0A0A] p-1 -ml-1">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+
+      <div class="flex-1 min-w-0">
+        <h1 class="text-base lg:text-lg font-medium text-[#0A0A0A] truncate"
+            style="font-family:'Fraunces',serif;">{% block page_title %}Dashboard{% endblock %}</h1>
+        {% block page_subtitle %}{% endblock %}
+      </div>
+
+      <div class="flex items-center gap-2 flex-shrink-0">
+        {% block header_actions %}{% endblock %}
+      </div>
+    </header>
+
+    {# Page content #}
+    <main class="flex-1 overflow-y-auto">
+      <div class="p-5 lg:p-8">
+        {% block dashboard_content %}{% endblock %}
+      </div>
+    </main>
+
+  </div>
+</div>
+
+<script>
+function openSidebar() {
+  document.getElementById('sidebar').classList.remove('-translate-x-full');
+  document.getElementById('sidebar').classList.add('translate-x-0');
+  document.getElementById('sidebar-overlay').classList.remove('hidden');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.add('-translate-x-full');
+  document.getElementById('sidebar').classList.remove('translate-x-0');
+  document.getElementById('sidebar-overlay').classList.add('hidden');
+}
+</script>
+
+{% endblock %}

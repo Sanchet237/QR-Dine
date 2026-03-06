@@ -1,0 +1,477 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Privacy Policy - QRDine{% endblock %}
+
+{% block body %}
+<!-- ============================================================
+     PRIVACY POLICY PAGE
+============================================================ -->
+<div style="min-height:100vh; background:#F9F7F3;">
+
+  <!-- Header Navigation -->
+  <nav style="background:rgba(13,13,13,0.95); backdrop-filter:blur(12px); padding:18px 24px;
+              position:sticky; top:0; z-index:100; border-bottom:1px solid rgba(255,255,255,0.08);">
+    <div style="max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between;">
+      <a href="{% url 'core:landing' %}" style="display:flex;align-items:center;text-decoration:none;">
+        <img src="{% static 'images/Logo.png' %}" alt="QRDine Logo" style="height: 50px; width: auto; object-fit: contain;">
+      </a>
+      <a href="{% url 'core:landing' %}" style="font-size:0.875rem;color:rgba(255,255,255,0.7);text-decoration:none;transition:color 0.2s;"
+         onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">
+        ← Back to Home
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section style="background:linear-gradient(135deg, #054D3A 0%, #0D0D0D 100%); padding:80px 24px; text-align:center;">
+    <div style="max-width:800px; margin:0 auto;">
+      <p style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em;
+                color:#10B981; font-weight:600; margin-bottom:12px;">Legal</p>
+      <h1 style="font-family:'Instrument Serif',serif; font-size:clamp(2.5rem,5vw,4rem);
+                 color:white; line-height:1.1; letter-spacing:-0.02em; margin-bottom:16px;">
+        Privacy Policy
+      </h1>
+      <p style="font-size:1rem; color:rgba(255,255,255,0.6); line-height:1.6; font-weight:300;">
+        Last updated: March 5, 2026
+      </p>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section style="padding:80px 24px;">
+    <div style="max-width:800px; margin:0 auto;">
+
+      <!-- Introduction -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <p style="font-size:1rem; color:#374151; line-height:1.8; margin-bottom:20px;">
+          At QRDine, we take your privacy seriously. This Privacy Policy explains how we collect, use, 
+          store, and protect your personal information when you use our digital menu platform.
+        </p>
+        <p style="font-size:1rem; color:#374151; line-height:1.8; margin-bottom:20px;">
+          By using QRDine, you agree to the collection and use of information in accordance with this policy. 
+          We are committed to transparency and giving you control over your data.
+        </p>
+        <div style="background:rgba(16,185,129,0.05); border-left:3px solid #10B981; padding:16px 20px; border-radius:8px;">
+          <p style="font-size:0.9rem; color:#0D0D0D; line-height:1.6; margin:0;">
+            <strong>TL;DR:</strong> We collect minimal data to run the service. We never sell your information. 
+            You can delete your account anytime. Your menu is public by design (that's the point).
+          </p>
+        </div>
+      </div>
+
+      <!-- Section 1 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          1. Information We Collect
+        </h2>
+        
+        <h3 style="font-size:1.2rem; color:#0D0D0D; margin-bottom:12px; font-weight:600;">
+          Account Information
+        </h3>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          When you register for QRDine, we collect:
+        </p>
+        <ul style="margin:0 0 24px 0; padding-left:24px; list-style:disc;">
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:8px;">
+            Restaurant name and business information
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:8px;">
+            Email address (for login and notifications)
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:8px;">
+            Password (encrypted and never stored in plain text)
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:8px;">
+            Phone number (optional, for account recovery)
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8;">
+            Business location and operating hours
+          </li>
+        </ul>
+
+        <h3 style="font-size:1.2rem; color:#0D0D0D; margin-bottom:12px; font-weight:600;">
+          Menu Content
+        </h3>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          The menu information you create and upload:
+        </p>
+        <ul style="margin:0 0 24px 0; padding-left:24px; list-style:disc;">
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:8px;">
+            Menu item names, descriptions, and prices
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:8px;">
+            Food images you upload (stored securely on our servers)
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:8px;">
+            Category organization and menu structure
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8;">
+            Availability status and dietary information
+          </li>
+        </ul>
+
+        <h3 style="font-size:1.2rem; color:#0D0D0D; margin-bottom:12px; font-weight:600;">
+          Usage Analytics
+        </h3>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          To improve our service, we collect:
+        </p>
+        <ul style="margin:0; padding-left:24px; list-style:disc;">
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:8px;">
+            Login activity and dashboard usage patterns
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:8px;">
+            Menu view counts and customer visit timestamps
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:8px;">
+            Device types and browsers (aggregated, not personally identifiable)
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:8px;">
+            IP addresses for security and fraud prevention
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8;">
+            QR code scan locations (approximate, not precise GPS)
+          </li>
+        </ul>
+      </div>
+
+      <!-- Section 2 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          2. How We Use Your Information
+        </h2>
+        
+        <ul style="margin:0; padding-left:24px; list-style:disc;">
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            <strong style="color:#0D0D0D;">Service Delivery:</strong> To host your digital menu, 
+            generate QR codes, and provide dashboard access.
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            <strong style="color:#0D0D0D;">Account Management:</strong> Authentication, password resets, 
+            and security notifications.
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            <strong style="color:#0D0D0D;">Analytics & Insights:</strong> Show you how customers interact 
+            with your menu (views, popular items, peak times).
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            <strong style="color:#0D0D0D;">Communication:</strong> Send important updates, feature announcements, 
+            and security alerts (no marketing spam).
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            <strong style="color:#0D0D0D;">Improvements:</strong> Analyze usage patterns to fix bugs 
+            and develop new features.
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8;">
+            <strong style="color:#0D0D0D;">Legal Compliance:</strong> Respond to legal requests and 
+            prevent fraud or abuse.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Section 3 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          3. Information Sharing & Disclosure
+        </h2>
+        
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          <strong style="color:#0D0D0D; font-size:1.05rem;">We do NOT sell your data. Period.</strong>
+        </p>
+        
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          We only share information in these limited circumstances:
+        </p>
+
+        <h3 style="font-size:1.2rem; color:#0D0D0D; margin-bottom:12px; font-weight:600;">
+          Public Menu Display
+        </h3>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:20px;">
+          Your menu content is <strong>intentionally public</strong> — that's the entire purpose of QRDine. 
+          Anyone with your menu URL or QR code can view your restaurant name, menu items, prices, 
+          and images. This is by design.
+        </p>
+
+        <h3 style="font-size:1.2rem; color:#0D0D0D; margin-bottom:12px; font-weight:600;">
+          Service Providers
+        </h3>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:20px;">
+          We use trusted third-party services that have signed data processing agreements:
+        </p>
+        <ul style="margin:0 0 20px 0; padding-left:24px; list-style:disc;">
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:8px;">
+            Cloud hosting providers for infrastructure (AWS, DigitalOcean, or similar)
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:8px;">
+            Email service providers for transactional emails (SendGrid, Mailgun, or similar)
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:8px;">
+            Image storage and CDN services for fast menu image loading
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8;">
+            Payment processors (if you upgrade to paid features)
+          </li>
+        </ul>
+
+        <h3 style="font-size:1.2rem; color:#0D0D0D; margin-bottom:12px; font-weight:600;">
+          Legal Requirements
+        </h3>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:20px;">
+          We may disclose information if required by law, court order, or government regulation, 
+          or to protect our rights and users' safety.
+        </p>
+
+        <h3 style="font-size:1.2rem; color:#0D0D0D; margin-bottom:12px; font-weight:600;">
+          Business Transfers
+        </h3>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8;">
+          If QRDine is acquired or merged, your data may transfer to the new entity. 
+          You'll be notified and can delete your account if you disagree.
+        </p>
+      </div>
+
+      <!-- Section 4 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          4. Data Security
+        </h2>
+        
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          We implement industry-standard security measures:
+        </p>
+        <ul style="margin:0; padding-left:24px; list-style:disc;">
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            <strong style="color:#0D0D0D;">Encryption:</strong> All data transmission uses HTTPS/TLS. 
+            Passwords are hashed with bcrypt.
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            <strong style="color:#0D0D0D;">Access Control:</strong> Database access is restricted to 
+            authorized personnel only.
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            <strong style="color:#0D0D0D;">Regular Backups:</strong> Automated daily backups with 
+            30-day retention for disaster recovery.
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            <strong style="color:#0D0D0D;">Monitoring:</strong> 24/7 security monitoring and 
+            intrusion detection systems.
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8;">
+            <strong style="color:#0D0D0D;">Vulnerability Testing:</strong> Regular security audits 
+            and penetration testing.
+          </li>
+        </ul>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-top:16px;">
+          However, no system is 100% secure. While we use best practices, we cannot guarantee 
+          absolute security. You're responsible for keeping your password confidential.
+        </p>
+      </div>
+
+      <!-- Section 5 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          5. Your Data Rights
+        </h2>
+        
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          You have control over your information:
+        </p>
+        <ul style="margin:0; padding-left:24px; list-style:disc;">
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            <strong style="color:#0D0D0D;">Access:</strong> View and download your account data 
+            anytime from the dashboard.
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            <strong style="color:#0D0D0D;">Update:</strong> Modify your restaurant information, 
+            menu content, and account settings instantly.
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            <strong style="color:#0D0D0D;">Delete:</strong> Permanently delete your account and data. 
+            Menu will be removed within 24 hours.
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            <strong style="color:#0D0D0D;">Export:</strong> Request a complete data export in 
+            machine-readable format (JSON/CSV).
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            <strong style="color:#0D0D0D;">Opt-Out:</strong> Unsubscribe from any non-essential 
+            communications (security alerts are mandatory).
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8;">
+            <strong style="color:#0D0D0D;">Object:</strong> Request restriction of data processing 
+            for legitimate reasons.
+          </li>
+        </ul>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-top:16px;">
+          To exercise these rights, contact us at <a href="mailto:privacy@qrdine.app" 
+          style="color:#10B981; text-decoration:none;">privacy@qrdine.app</a>. 
+          We'll respond within 30 days.
+        </p>
+      </div>
+
+      <!-- Section 6 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          6. Cookies & Tracking
+        </h2>
+        
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          We use minimal cookies and tracking:
+        </p>
+
+        <h3 style="font-size:1.2rem; color:#0D0D0D; margin-bottom:12px; font-weight:600;">
+          Essential Cookies
+        </h3>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          Required for the service to function (session management, authentication). 
+          These cannot be disabled.
+        </p>
+
+        <h3 style="font-size:1.2rem; color:#0D0D0D; margin-bottom:12px; font-weight:600;">
+          Analytics Cookies
+        </h3>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          Help us understand how users interact with QRDine (aggregated data only). 
+          You can opt out via dashboard settings.
+        </p>
+
+        <h3 style="font-size:1.2rem; color:#0D0D0D; margin-bottom:12px; font-weight:600;">
+          No Advertising Cookies
+        </h3>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8;">
+          We don't use cookies for ads or cross-site tracking. Your browsing habits stay private.
+        </p>
+      </div>
+
+      <!-- Section 7 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          7. Data Retention
+        </h2>
+        
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          We retain your data as long as your account is active. After deletion:
+        </p>
+        <ul style="margin:0; padding-left:24px; list-style:disc;">
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:8px;">
+            Menu content is removed within 24 hours
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:8px;">
+            Personal information is deleted within 30 days
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:8px;">
+            Backup copies are purged within 90 days
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8;">
+            Anonymous analytics may be retained indefinitely (no personal identifiers)
+          </li>
+        </ul>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-top:16px;">
+          Some data may be retained longer for legal compliance (e.g., financial records, 
+          legal disputes).
+        </p>
+      </div>
+
+      <!-- Section 8 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          8. Children's Privacy
+        </h2>
+        
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          QRDine is not intended for children under 18. We do not knowingly collect information 
+          from minors.
+        </p>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8;">
+          If we discover a child's data has been collected, we'll delete it immediately. 
+          Parents/guardians who believe we have child data should contact us at 
+          <a href="mailto:privacy@qrdine.app" style="color:#10B981; text-decoration:none;">privacy@qrdine.app</a>.
+        </p>
+      </div>
+
+      <!-- Section 9 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          9. International Users
+        </h2>
+        
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          QRDine operates globally. Your data may be processed in countries outside your own. 
+          By using QRDine, you consent to international data transfers.
+        </p>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          <strong style="color:#0D0D0D;">EU Users (GDPR):</strong> We comply with GDPR requirements. 
+          You have enhanced rights including data portability and the right to be forgotten.
+        </p>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8;">
+          <strong style="color:#0D0D0D;">California Users (CCPA):</strong> California residents 
+          have additional rights regarding data disclosure and sale (which we don't do anyway).
+        </p>
+      </div>
+
+      <!-- Section 10 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          10. Changes to This Policy
+        </h2>
+        
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          We may update this Privacy Policy periodically. Material changes will be announced via:
+        </p>
+        <ul style="margin:0; padding-left:24px; list-style:disc;">
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:8px;">
+            Email notification to registered users
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:8px;">
+            Dashboard banner notification
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8;">
+            Updated "Last modified" date at the top of this page
+          </li>
+        </ul>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-top:16px;">
+          Continued use after changes take effect means you accept the new policy. 
+          If you disagree, delete your account before the changes take effect.
+        </p>
+      </div>
+
+      <!-- Contact -->
+      <div style="background:linear-gradient(135deg, rgba(16,185,129,0.05), rgba(16,185,129,0.02)); 
+                  border-radius:16px; padding:40px; border:1px solid rgba(16,185,129,0.15);">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:16px; letter-spacing:-0.01em;">
+          Privacy Questions?
+        </h2>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:20px;">
+          We're here to help. Contact our privacy team:
+        </p>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <p style="font-size:0.9rem; color:#0D0D0D;">
+            <strong>Privacy Team:</strong> <a href="mailto:privacy@qrdine.app" 
+              style="color:#10B981; text-decoration:none;">privacy@qrdine.app</a>
+          </p>
+          <p style="font-size:0.9rem; color:#0D0D0D;">
+            <strong>Data Requests:</strong> Use subject line "Data Request - [Your Restaurant Name]"
+          </p>
+          <p style="font-size:0.9rem; color:#0D0D0D;">
+            <strong>Response Time:</strong> Within 30 days (usually much faster)
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+{% endblock body %}

@@ -1,0 +1,194 @@
+{% extends "base_dashboard.html" %}
+{% block title %}Manage Restaurants — QRDine{% endblock %}
+{% block page_title %}All Restaurants{% endblock %}
+{% block page_subtitle %}<p class="text-xs text-[#6B7280]">Super Admin Panel</p>{% endblock %}
+
+{% block dashboard_content %}
+
+{# Search Bar #}
+<div class="bg-white rounded-2xl border border-[#E7E7E0] p-4 mb-6">
+  <form method="get" class="flex items-center gap-3">
+    <div class="flex-1 relative">
+      <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#6B7280]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+      <input type="text" 
+             name="q" 
+             value="{{ request.GET.q }}"
+             placeholder="Search restaurants by name, email, or slug..." 
+             class="w-full pl-12 pr-4 py-2.5 border border-[#E7E7E0] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#059669] focus:border-transparent">
+    </div>
+    <button type="submit" class="bg-[#059669] text-white px-6 py-2.5 rounded-xl font-medium hover:bg-[#064E3B] transition-colors">
+      Search
+    </button>
+    {% if request.GET.q %}
+    <a href="{% url 'superadmin:restaurants' %}" class="text-[#6B7280] hover:text-[#0A0A0A] transition-colors px-4 py-2.5">
+      Clear
+    </a>
+    {% endif %}
+  </form>
+</div>
+
+{# Stats Summary #}
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+  <div class="bg-white rounded-2xl p-4 border border-[#E7E7E0]">
+    <p class="text-xs text-[#6B7280] uppercase tracking-widest font-medium mb-2">Total</p>
+    <p class="text-3xl font-light text-[#0A0A0A]" style="font-family:'Fraunces',serif;">{{ restaurants.count }}</p>
+  </div>
+  
+  <div class="bg-white rounded-2xl p-4 border border-[#E7E7E0]">
+    <p class="text-xs text-[#6B7280] uppercase tracking-widest font-medium mb-2">Active</p>
+    <p class="text-3xl font-light text-[#059669]" style="font-family:'Fraunces',serif;">{{ restaurants|length }}</p>
+  </div>
+  
+  <div class="bg-white rounded-2xl p-4 border border-[#E7E7E0]">
+    <p class="text-xs text-[#6B7280] uppercase tracking-widest font-medium mb-2">Inactive</p>
+    <p class="text-3xl font-light text-[#D97706]" style="font-family:'Fraunces',serif;">0</p>
+  </div>
+  
+  <div class="bg-white rounded-2xl p-4 border border-[#E7E7E0]">
+    <p class="text-xs text-[#6B7280] uppercase tracking-widest font-medium mb-2">This Month</p>
+    <p class="text-3xl font-light text-[#0A0A0A]" style="font-family:'Fraunces',serif;">0</p>
+  </div>
+</div>
+
+{# Restaurants Table #}
+<div class="bg-white rounded-2xl border border-[#E7E7E0] overflow-hidden">
+  <div class="px-6 py-4 border-b border-[#E7E7E0] flex items-center justify-between">
+    <h2 class="font-medium text-[#0A0A0A]" style="font-family:'Fraunces',serif;">
+      {% if request.GET.q %}Search Results{% else %}All Restaurants{% endif %}
+    </h2>
+    {% if request.GET.q %}
+    <p class="text-sm text-[#6B7280]">{{ restaurants|length }} result{{ restaurants|length|pluralize }}</p>
+    {% endif %}
+  </div>
+  
+  {% if restaurants %}
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="bg-[#F5F5F0] border-b border-[#E7E7E0]">
+          <th class="text-left px-6 py-3 text-xs text-[#6B7280] font-semibold uppercase tracking-wide">Restaurant</th>
+          <th class="text-left px-6 py-3 text-xs text-[#6B7280] font-semibold uppercase tracking-wide hidden md:table-cell">Owner</th>
+          <th class="text-left px-6 py-3 text-xs text-[#6B7280] font-semibold uppercase tracking-wide hidden lg:table-cell">Contact</th>
+          <th class="text-left px-6 py-3 text-xs text-[#6B7280] font-semibold uppercase tracking-wide hidden lg:table-cell">Items</th>
+          <th class="text-left px-6 py-3 text-xs text-[#6B7280] font-semibold uppercase tracking-wide">Status</th>
+          <th class="text-left px-6 py-3 text-xs text-[#6B7280] font-semibold uppercase tracking-wide hidden xl:table-cell">Joined</th>
+          <th class="text-right px-6 py-3 text-xs text-[#6B7280] font-semibold uppercase tracking-wide">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-[#F5F5F0]">
+        {% for r in restaurants %}
+        <tr class="hover:bg-[#FAFAF7] transition-colors">
+          <td class="px-6 py-4">
+            <div class="flex items-center gap-3">
+              {% if r.logo %}
+              <img src="{{ r.logo.url }}" alt="{{ r.name }}" class="w-10 h-10 rounded-lg object-cover">
+              {% else %}
+              <div class="w-10 h-10 rounded-lg bg-[#F5F5F0] flex items-center justify-center">
+                <span class="text-xs font-medium text-[#6B7280]">{{ r.name|slice:":2"|upper }}</span>
+              </div>
+              {% endif %}
+              <div>
+                <p class="font-medium text-[#0A0A0A]">{{ r.name }}</p>
+                <p class="text-xs text-[#6B7280] font-mono">/menu/{{ r.slug }}</p>
+              </div>
+            </div>
+          </td>
+          <td class="px-6 py-4 text-[#6B7280] hidden md:table-cell">
+            <p>{{ r.owner.get_full_name|default:r.owner.username }}</p>
+            <p class="text-xs">{{ r.owner.email }}</p>
+          </td>
+          <td class="px-6 py-4 text-[#6B7280] hidden lg:table-cell">
+            {% if r.phone %}<p>{{ r.phone }}</p>{% endif %}
+            {% if r.email %}<p class="text-xs">{{ r.email }}</p>{% endif %}
+          </td>
+          <td class="px-6 py-4 text-[#6B7280] hidden lg:table-cell">
+            {{ r.total_items|default:0 }}
+          </td>
+          <td class="px-6 py-4">
+            <button onclick="toggleRestaurant({{ r.id }}, this)" 
+                    class="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full transition-colors
+                    {% if r.is_active %}bg-[#D1FAE5] text-[#065F46] hover:bg-[#A7F3D0]{% else %}bg-red-50 text-red-600 hover:bg-red-100{% endif %}">
+              <span class="w-1.5 h-1.5 rounded-full {% if r.is_active %}bg-[#059669]{% else %}bg-red-500{% endif %}"></span>
+              {% if r.is_active %}Active{% else %}Inactive{% endif %}
+            </button>
+          </td>
+          <td class="px-6 py-4 text-[#6B7280] text-xs hidden xl:table-cell">{{ r.created_at|date:"d M Y" }}</td>
+          <td class="px-6 py-4">
+            <div class="flex items-center justify-end gap-2">
+              <a href="/menu/{{ r.slug }}/" target="_blank" 
+                 class="text-[#059669] hover:text-[#064E3B] transition-colors p-2" 
+                 title="View Menu">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </a>
+              <form method="post" action="{% url 'superadmin:delete_restaurant' r.id %}" 
+                    onsubmit="return confirm('Delete {{ r.name }}? This will also delete the owner account and all data. This action cannot be undone.');">
+                {% csrf_token %}
+                <button type="submit" class="text-red-600 hover:text-red-700 transition-colors p-2" title="Delete">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                  </svg>
+                </button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="p-12 text-center">
+    <svg class="w-16 h-16 mx-auto text-[#E7E7E0] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+    </svg>
+    <p class="text-[#6B7280] mb-2">
+      {% if request.GET.q %}No restaurants found matching your search{% else %}No restaurants registered yet{% endif %}
+    </p>
+  </div>
+  {% endif %}
+</div>
+
+<script>
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+function toggleRestaurant(restaurantId, button) {
+  fetch(`/superadmin/restaurants/${restaurantId}/toggle/`, {
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken'),
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.is_active) {
+      button.className = 'inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full transition-colors bg-[#D1FAE5] text-[#065F46] hover:bg-[#A7F3D0]';
+      button.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-[#059669]"></span>Active';
+    } else {
+      button.className = 'inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full transition-colors bg-red-50 text-red-600 hover:bg-red-100';
+      button.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>Inactive';
+    }
+  })
+  .catch(error => console.error('Error:', error));
+}
+</script>
+
+{% endblock %}

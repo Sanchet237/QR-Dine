@@ -1,0 +1,147 @@
+{% extends "base_dashboard.html" %}
+{% block title %}Restaurant Profile — {{ restaurant.name }}{% endblock %}
+{% block page_title %}Restaurant Profile{% endblock %}
+{% block page_subtitle %}<p class="text-xs text-[#6B7280]">Update your restaurant information</p>{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="bg-white rounded-2xl border border-[#E7E7E0] p-6">
+  <form method="post" enctype="multipart/form-data" id="profileForm">
+    {% csrf_token %}
+    
+    {% if form.non_field_errors %}
+    <div class="bg-red-50 text-red-600 p-3 rounded-lg text-sm mb-4">
+      {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {# Logo Upload Section #}
+      <div class="lg:col-span-1">
+        <label class="block text-sm font-medium text-[#0A0A0A] mb-3">Restaurant Logo</label>
+        <div class="space-y-4">
+          <div id="logoPreview" class="relative w-full aspect-square rounded-2xl border-2 border-dashed border-[#E7E7E0] overflow-hidden bg-[#FAFAF7] flex items-center justify-center">
+            {% if restaurant.logo %}
+            <img src="{{ restaurant.logo.url }}" alt="{{ restaurant.name }}" class="w-full h-full object-cover">
+            {% else %}
+            <div class="text-center p-6">
+              <svg class="w-16 h-16 mx-auto text-[#E7E7E0] mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              <p class="text-sm text-[#6B7280]">No logo uploaded</p>
+            </div>
+            {% endif %}
+          </div>
+          
+          {{ form.logo }}
+          {% if form.logo.errors %}
+          <p class="text-sm text-red-600">{{ form.logo.errors.0 }}</p>
+          {% endif %}
+          <p class="text-xs text-[#6B7280]">Recommended: Square image, min 400x400px</p>
+        </div>
+      </div>
+      
+      {# Form Fields Section #}
+      <div class="lg:col-span-2 space-y-5">
+        <div>
+          <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-[#0A0A0A] mb-1.5">
+            Restaurant Name <span class="text-red-500">*</span>
+          </label>
+          {{ form.name }}
+          {% if form.name.errors %}
+          <p class="mt-1 text-sm text-red-600">{{ form.name.errors.0 }}</p>
+          {% endif %}
+        </div>
+        
+        <div>
+          <label for="{{ form.description.id_for_label }}" class="block text-sm font-medium text-[#0A0A0A] mb-1.5">
+            Description
+          </label>
+          {{ form.description }}
+          {% if form.description.errors %}
+          <p class="mt-1 text-sm text-red-600">{{ form.description.errors.0 }}</p>
+          {% endif %}
+          <p class="mt-1 text-xs text-[#6B7280]">A brief description of your restaurant</p>
+        </div>
+        
+        <div>
+          <label for="{{ form.address.id_for_label }}" class="block text-sm font-medium text-[#0A0A0A] mb-1.5">
+            Address
+          </label>
+          {{ form.address }}
+          {% if form.address.errors %}
+          <p class="mt-1 text-sm text-red-600">{{ form.address.errors.0 }}</p>
+          {% endif %}
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="{{ form.phone.id_for_label }}" class="block text-sm font-medium text-[#0A0A0A] mb-1.5">
+              Phone Number
+            </label>
+            {{ form.phone }}
+            {% if form.phone.errors %}
+            <p class="mt-1 text-sm text-red-600">{{ form.phone.errors.0 }}</p>
+            {% endif %}
+          </div>
+          
+          <div>
+            <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-[#0A0A0A] mb-1.5">
+              Email
+            </label>
+            {{ form.email }}
+            {% if form.email.errors %}
+            <p class="mt-1 text-sm text-red-600">{{ form.email.errors.0 }}</p>
+            {% endif %}
+          </div>
+        </div>
+        
+        <div>
+          <label for="{{ form.website.id_for_label }}" class="block text-sm font-medium text-[#0A0A0A] mb-1.5">
+            Website
+          </label>
+          {{ form.website }}
+          {% if form.website.errors %}
+          <p class="mt-1 text-sm text-red-600">{{ form.website.errors.0 }}</p>
+          {% endif %}
+        </div>
+        
+        <div class="flex items-center gap-3 pt-4 border-t border-[#E7E7E0]">
+          <label class="relative inline-flex items-center cursor-pointer">
+            {{ form.is_active }}
+            <span class="ml-3 text-sm font-medium text-[#0A0A0A]">Restaurant is Active</span>
+          </label>
+          <div class="text-xs text-[#6B7280]">
+            (Customers can view your menu when active)
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="flex items-center justify-between pt-6 mt-6 border-t border-[#E7E7E0]">
+      <div class="text-sm text-[#6B7280]">
+        <p class="font-mono">Menu URL: {{ request.scheme }}://{{ request.get_host }}/menu/{{ restaurant.slug }}/</p>
+      </div>
+      <button type="submit" class="bg-[#059669] text-white px-6 py-2.5 rounded-xl font-medium hover:bg-[#064E3B] transition-colors">
+        Save Changes
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+// Logo preview
+document.querySelector('input[type="file"][name="logo"]').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      const preview = document.getElementById('logoPreview');
+      preview.innerHTML = `<img src="${event.target.result}" alt="Preview" class="w-full h-full object-cover">`;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+</script>
+
+{% endblock %}

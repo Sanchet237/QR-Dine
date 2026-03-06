@@ -1,0 +1,354 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Terms of Service - QRDine{% endblock %}
+
+{% block body %}
+<!-- ============================================================
+     TERMS OF SERVICE PAGE
+============================================================ -->
+<div style="min-height:100vh; background:#F9F7F3;">
+
+  <!-- Header Navigation -->
+  <nav style="background:rgba(13,13,13,0.95); backdrop-filter:blur(12px); padding:18px 24px;
+              position:sticky; top:0; z-index:100; border-bottom:1px solid rgba(255,255,255,0.08);">
+    <div style="max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between;">
+      <a href="{% url 'core:landing' %}" style="display:flex;align-items:center;text-decoration:none;">
+        <img src="{% static 'images/Logo.png' %}" alt="QRDine Logo" style="height: 50px; width: auto; object-fit: contain;">
+      </a>
+      <a href="{% url 'core:landing' %}" style="font-size:0.875rem;color:rgba(255,255,255,0.7);text-decoration:none;transition:color 0.2s;"
+         onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">
+        ← Back to Home
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section style="background:linear-gradient(135deg, #054D3A 0%, #0D0D0D 100%); padding:80px 24px; text-align:center;">
+    <div style="max-width:800px; margin:0 auto;">
+      <p style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em;
+                color:#10B981; font-weight:600; margin-bottom:12px;">Legal</p>
+      <h1 style="font-family:'Instrument Serif',serif; font-size:clamp(2.5rem,5vw,4rem);
+                 color:white; line-height:1.1; letter-spacing:-0.02em; margin-bottom:16px;">
+        Terms of Service
+      </h1>
+      <p style="font-size:1rem; color:rgba(255,255,255,0.6); line-height:1.6; font-weight:300;">
+        Last updated: March 5, 2026
+      </p>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section style="padding:80px 24px;">
+    <div style="max-width:800px; margin:0 auto;">
+
+      <!-- Introduction -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <p style="font-size:1rem; color:#374151; line-height:1.8; margin-bottom:20px;">
+          Welcome to QRDine. By accessing or using our platform, you agree to be bound by these Terms of Service. 
+          Please read them carefully before using our services.
+        </p>
+        <p style="font-size:1rem; color:#374151; line-height:1.8;">
+          These terms govern your use of QRDine's digital menu platform, including our website, dashboard, 
+          and QR code menu services for restaurants and their customers.
+        </p>
+      </div>
+
+      <!-- Section 1 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          1. Acceptance of Terms
+        </h2>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          By creating an account or using QRDine services, you acknowledge that you have read, understood, 
+          and agree to be bound by these Terms of Service and our Privacy Policy.
+        </p>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8;">
+          If you are using QRDine on behalf of a restaurant or business, you represent that you have 
+          the authority to bind that entity to these terms.
+        </p>
+      </div>
+
+      <!-- Section 2 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          2. Account Registration & Eligibility
+        </h2>
+        <ul style="margin:0; padding-left:24px; list-style:disc;">
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            You must be at least 18 years old to create a QRDine account.
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            You must provide accurate, complete, and current information during registration.
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            You are responsible for maintaining the security of your account credentials.
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            You agree not to share your account with others or allow unauthorized access.
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8;">
+            One account per restaurant/business. Multiple establishments require separate accounts.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Section 3 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          3. Service Description
+        </h2>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          QRDine provides a digital menu platform that allows restaurants to:
+        </p>
+        <ul style="margin:0; padding-left:24px; list-style:disc;">
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            Create and manage digital menus with items, categories, descriptions, and images
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            Generate QR codes that link to their digital menu
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            Update menu content in real-time without reprinting materials
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            Provide customers with a mobile-optimized menu browsing experience
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8;">
+            Access analytics and insights about menu views and customer behavior (where available)
+          </li>
+        </ul>
+      </div>
+
+      <!-- Section 4 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          4. User Responsibilities
+        </h2>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          As a restaurant user, you agree to:
+        </p>
+        <ul style="margin:0; padding-left:24px; list-style:disc;">
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            <strong style="color:#0D0D0D;">Accurate Information:</strong> Ensure all menu items, prices, descriptions, 
+            and allergen information are accurate and up-to-date.
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            <strong style="color:#0D0D0D;">Content Ownership:</strong> Only upload images and content that you own 
+            or have the right to use.
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            <strong style="color:#0D0D0D;">Compliance:</strong> Comply with all applicable laws, including food safety, 
+            labeling, and advertising regulations.
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            <strong style="color:#0D0D0D;">No Misuse:</strong> Not use the platform for illegal, harmful, 
+            or fraudulent purposes.
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8;">
+            <strong style="color:#0D0D0D;">Regular Updates:</strong> Keep your menu information current, 
+            especially regarding item availability and pricing.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Section 5 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          5. Prohibited Activities
+        </h2>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          You may not:
+        </p>
+        <ul style="margin:0; padding-left:24px; list-style:disc;">
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            Attempt to gain unauthorized access to QRDine systems or other user accounts
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            Use automated systems or scripts to scrape or extract data from QRDine
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            Upload malicious code, viruses, or any harmful software
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            Impersonate another restaurant or misrepresent your affiliation
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            Use the service to distribute spam or unsolicited communications
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8;">
+            Reverse engineer, decompile, or attempt to extract source code from the platform
+          </li>
+        </ul>
+      </div>
+
+      <!-- Section 6 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          6. Pricing & Payment
+        </h2>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          <strong style="color:#0D0D0D;">Free Tier:</strong> QRDine offers a free tier with basic features 
+          including menu creation, QR code generation, and public menu hosting.
+        </p>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          <strong style="color:#0D0D0D;">Premium Features:</strong> Additional features may be offered 
+          as paid upgrades. Pricing will be clearly displayed before purchase.
+        </p>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8;">
+          We reserve the right to modify pricing with 30 days' notice to existing users. 
+          Changes will not affect active subscription periods.
+        </p>
+      </div>
+
+      <!-- Section 7 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          7. Intellectual Property
+        </h2>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          <strong style="color:#0D0D0D;">Platform Ownership:</strong> QRDine retains all rights, title, 
+          and interest in the platform, including its design, code, features, and branding.
+        </p>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          <strong style="color:#0D0D0D;">Your Content:</strong> You retain ownership of the menu content, 
+          images, and descriptions you upload. By using QRDine, you grant us a limited license to display, 
+          store, and transmit your content as necessary to provide the service.
+        </p>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8;">
+          <strong style="color:#0D0D0D;">Licensed Use:</strong> We grant you a non-exclusive, 
+          non-transferable license to use the platform in accordance with these terms.
+        </p>
+      </div>
+
+      <!-- Section 8 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          8. Service Availability & Modifications
+        </h2>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          We strive to maintain 99.9% uptime but cannot guarantee uninterrupted service. 
+          QRDine may be unavailable due to maintenance, updates, or circumstances beyond our control.
+        </p>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8;">
+          We reserve the right to modify, suspend, or discontinue features with reasonable notice. 
+          Critical bug fixes and security updates may be applied without notice.
+        </p>
+      </div>
+
+      <!-- Section 9 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          9. Limitation of Liability
+        </h2>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          QRDine is provided "as is" without warranties of any kind. We are not liable for:
+        </p>
+        <ul style="margin:0; padding-left:24px; list-style:disc;">
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            Loss of revenue, profits, or business opportunities
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            Inaccurate menu information or pricing errors you publish
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            Data loss (though we maintain regular backups)
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            Customer disputes arising from your menu content
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8;">
+            Indirect, incidental, or consequential damages
+          </li>
+        </ul>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-top:16px;">
+          Our total liability shall not exceed the fees you paid to QRDine in the 12 months 
+          preceding the claim.
+        </p>
+      </div>
+
+      <!-- Section 10 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          10. Termination
+        </h2>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          <strong style="color:#0D0D0D;">By You:</strong> You may delete your account at any time 
+          from the dashboard settings. Your menu will be removed within 24 hours.
+        </p>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          <strong style="color:#0D0D0D;">By Us:</strong> We may suspend or terminate your account if:
+        </p>
+        <ul style="margin:0; padding-left:24px; list-style:disc;">
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            You violate these Terms of Service
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            Your account is inactive for more than 12 months
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:12px;">
+            We detect fraudulent or abusive behavior
+          </li>
+          <li style="font-size:0.95rem; color:#374151; line-height:1.8;">
+            Required by law or legal process
+          </li>
+        </ul>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-top:16px;">
+          Upon termination, your right to use QRDine immediately ceases. We may retain certain 
+          data for legal and backup purposes.
+        </p>
+      </div>
+
+      <!-- Section 11 -->
+      <div style="background:white; border-radius:16px; padding:40px; margin-bottom:32px; border:1px solid #E5E2DA;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:20px; letter-spacing:-0.01em;">
+          11. Changes to Terms
+        </h2>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:16px;">
+          We may update these Terms of Service from time to time. Material changes will be 
+          communicated via email and/or a dashboard notification.
+        </p>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8;">
+          Continued use of QRDine after changes take effect constitutes acceptance of the new terms. 
+          If you disagree, you may terminate your account.
+        </p>
+      </div>
+
+      <!-- Contact -->
+      <div style="background:linear-gradient(135deg, rgba(16,185,129,0.05), rgba(16,185,129,0.02)); 
+                  border-radius:16px; padding:40px; border:1px solid rgba(16,185,129,0.15);">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:1.8rem; color:#0D0D0D; 
+                   margin-bottom:16px; letter-spacing:-0.01em;">
+          Questions?
+        </h2>
+        <p style="font-size:0.95rem; color:#374151; line-height:1.8; margin-bottom:20px;">
+          If you have questions about these Terms of Service, please contact us:
+        </p>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <p style="font-size:0.9rem; color:#0D0D0D;">
+            <strong>Email:</strong> <a href="mailto:legal@qrdine.app" 
+              style="color:#10B981; text-decoration:none;">legal@qrdine.app</a>
+          </p>
+          <p style="font-size:0.9rem; color:#0D0D0D;">
+            <strong>Support:</strong> <a href="mailto:support@qrdine.app" 
+              style="color:#10B981; text-decoration:none;">support@qrdine.app</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+{% endblock body %}

@@ -1,0 +1,168 @@
+{% extends "base_dashboard.html" %}
+{% block title %}Menu Items — QRDine{% endblock %}
+{% block page_title %}Menu Items{% endblock %}
+{% block page_subtitle %}<p class="text-xs text-[#6B7280]">{{ items|length }} item{{ items|length|pluralize }}</p>{% endblock %}
+
+{% block header_actions %}
+<a href="{% url 'restaurants:add_item' %}" 
+   class="bg-[#064E3B] hover:bg-[#059669] text-white text-sm font-medium px-5 py-2.5 rounded-xl transition-colors">
+  + Add Item
+</a>
+{% endblock %}
+
+{% block dashboard_content %}
+
+{# Category Filter #}
+<div class="flex flex-wrap gap-2 mb-6">
+  <a href="{% url 'restaurants:menu_items' %}"
+     class="px-4 py-2 rounded-lg text-sm font-medium transition-colors
+            {% if not selected_category %}bg-[#064E3B] text-white{% else %}bg-white border border-[#E7E7E0] text-[#6B7280] hover:border-[#064E3B]{% endif %}">
+    All Items
+  </a>
+  {% for cat in categories %}
+  <a href="?category={{ cat.pk }}"
+     class="px-4 py-2 rounded-lg text-sm font-medium transition-colors
+            {% if selected_category == cat.pk %}bg-[#064E3B] text-white{% else %}bg-white border border-[#E7E7E0] text-[#6B7280] hover:border-[#064E3B]{% endif %}">
+    {{ cat.name }} ({{ cat.items.count }})
+  </a>
+  {% endfor %}
+</div>
+
+{# Items Grid #}
+{% if items %}
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {% for item in items %}
+  <div class="bg-white rounded-2xl border border-[#E7E7E0] overflow-hidden group">
+    {# Image #}
+    {% if item.image %}
+    <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-full h-48 object-cover">
+    {% else %}
+    <div class="w-full h-48 bg-[#F5F5F0] flex items-center justify-center">
+      <svg class="w-16 h-16 text-[#E7E7E0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+      </svg>
+    </div>
+    {% endif %}
+    
+    {# Content #}
+    <div class="p-5">
+      <div class="flex items-start justify-between mb-2">
+        <div class="flex-1 min-w-0">
+          <h3 class="font-medium text-[#0A0A0A] truncate">{{ item.name }}</h3>
+          <p class="text-xs text-[#6B7280] truncate">
+            {% if item.category %}{{ item.category.name }}{% else %}Uncategorised{% endif %}
+          </p>
+        </div>
+        <span class="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full flex-shrink-0 ml-2
+          {% if item.is_available %}bg-[#D1FAE5] text-[#065F46]{% else %}bg-red-50 text-red-600{% endif %}">
+          <span class="w-1.5 h-1.5 rounded-full {% if item.is_available %}bg-[#059669]{% else %}bg-red-500{% endif %}"></span>
+          {% if item.is_available %}Available{% else %}Sold Out{% endif %}
+        </span>
+      </div>
+      
+      {% if item.description %}
+      <p class="text-sm text-[#6B7280] mb-3 line-clamp-2">{{ item.description }}</p>
+      {% endif %}
+      
+      <p class="text-lg font-medium text-[#064E3B] mb-4" style="font-family:'Fraunces',serif;">₹{{ item.price }}</p>
+      
+      {# Actions #}
+      <div class="flex items-center gap-2">
+        <button onclick="toggleAvailability({{ item.pk }}, this)" 
+                data-available="{{ item.is_available|lower }}"
+                class="flex-1 text-xs font-medium py-2 rounded-lg transition-colors
+                       {% if item.is_available %}bg-orange-50 text-orange-600 hover:bg-orange-100{% else %}bg-emerald-50 text-emerald-600 hover:bg-emerald-100{% endif %}">
+          <span class="toggle-label">{% if item.is_available %}Mark Sold Out{% else %}Mark Available{% endif %}</span>
+        </button>
+        <a href="{% url 'restaurants:edit_item' item.pk %}"
+           class="p-2 text-[#6B7280] hover:text-[#064E3B] hover:bg-[#F5F5F0] rounded-lg transition-colors"
+           title="Edit">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+          </svg>
+        </a>
+        <form method="post" action="{% url 'restaurants:delete_item' item.pk %}"
+              onsubmit="return confirm('Delete {{ item.name }}?')" class="inline">
+          {% csrf_token %}
+          <button type="submit"
+                  class="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                  title="Delete">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="bg-white rounded-2xl border border-[#E7E7E0] py-20 text-center">
+  <div class="w-16 h-16 bg-[#F5F5F0] rounded-2xl flex items-center justify-center mx-auto mb-5">
+    <svg class="w-8 h-8 text-[#D1FAE5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+    </svg>
+  </div>
+  <h3 class="text-lg font-medium text-[#0A0A0A] mb-2" style="font-family:'Fraunces',serif;">No menu items yet</h3>
+  <p class="text-sm text-[#6B7280] mb-6">Add your first dish to get started</p>
+  <a href="{% url 'restaurants:add_item' %}"
+     class="inline-block bg-[#064E3B] text-white text-sm px-5 py-2.5 rounded-xl hover:bg-[#059669] transition-colors">
+    Add First Item
+  </a>
+</div>
+{% endif %}
+
+<script>
+function toggleAvailability(itemId, button) {
+  button.disabled = true;
+  const label = button.querySelector('.toggle-label');
+  const originalText = label.textContent;
+  label.textContent = 'Updating...';
+  
+  fetch(`/dashboard/items/${itemId}/toggle/`, {
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': '{{ csrf_token }}',
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.status === 'ok') {
+      // Update badge and button
+      const card = button.closest('.group');
+      const badge = card.querySelector('.rounded-full');
+      const dot = badge.querySelector('.w-1\\.5');
+      
+      if (data.is_available) {
+        badge.className = 'inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full flex-shrink-0 ml-2 bg-[#D1FAE5] text-[#065F46]';
+        dot.className = 'w-1.5 h-1.5 rounded-full bg-[#059669]';
+        badge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-[#059669]"></span>Available';
+        
+        button.className = 'flex-1 text-xs font-medium py-2 rounded-lg transition-colors bg-orange-50 text-orange-600 hover:bg-orange-100';
+        label.textContent = 'Mark Sold Out';
+      } else {
+        badge.className = 'inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full flex-shrink-0 ml-2 bg-red-50 text-red-600';
+        dot.className = 'w-1.5 h-1.5 rounded-full bg-red-500';
+        badge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>Sold Out';
+        
+        button.className = 'flex-1 text-xs font-medium py-2 rounded-lg transition-colors bg-emerald-50 text-emerald-600 hover:bg-emerald-100';
+        label.textContent = 'Mark Available';
+      }
+    } else {
+      label.textContent = 'Error';
+      setTimeout(() => { label.textContent = originalText; }, 2000);
+    }
+    button.disabled = false;
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    label.textContent = 'Error';
+    setTimeout(() => { label.textContent = originalText; }, 2000);
+    button.disabled = false;
+  });
+}
+</script>
+
+{% endblock %}

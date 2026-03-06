@@ -1,0 +1,59 @@
+{# templates/restaurants/_sidebar_links.html #}
+
+{% url 'restaurants:dashboard'    as url_dash %}
+{% url 'restaurants:menu_items'   as url_items %}
+{% url 'restaurants:categories'   as url_cats %}
+{% url 'restaurants:profile'      as url_profile %}
+{% url 'restaurants:qr_code_view' as url_qr %}
+
+<a href="{{ url_dash }}"
+   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors
+          {% if request.path == '/dashboard/' %}bg-white/10 text-white{% else %}text-white/55 hover:text-white hover:bg-white/6{% endif %}">
+  <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+  </svg>
+  Dashboard
+</a>
+
+<a href="{{ url_items }}"
+   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors
+          {% if '/dashboard/items' in request.path %}bg-white/10 text-white{% else %}text-white/55 hover:text-white hover:bg-white/6{% endif %}">
+  <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+  </svg>
+  Menu Items
+</a>
+
+<a href="{{ url_cats }}"
+   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors
+          {% if '/dashboard/categories' in request.path %}bg-white/10 text-white{% else %}text-white/55 hover:text-white hover:bg-white/6{% endif %}">
+  <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+  </svg>
+  Categories
+</a>
+
+<a href="{{ url_qr }}"
+   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors
+          {% if '/dashboard/qr-code' in request.path %}bg-white/10 text-white{% else %}text-white/55 hover:text-white hover:bg-white/6{% endif %}">
+  <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/>
+  </svg>
+  QR Code
+</a>
+
+<div class="pt-4 mt-2 border-t border-white/10">
+  <a href="{{ url_profile }}"
+     class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-white/55 hover:text-white hover:bg-white/6 transition-colors
+            {% if '/dashboard/profile' in request.path %}bg-white/10 text-white{% endif %}">
+    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+    </svg>
+    Profile
+  </a>
+</div>

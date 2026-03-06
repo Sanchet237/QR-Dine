@@ -1,0 +1,64 @@
+{% extends "base_dashboard.html" %}
+{% load static %}
+{% block title %}QR Code — QRDine{% endblock %}
+{% block page_title %}Your QR Code{% endblock %}
+{% block page_subtitle %}<p class="text-xs text-[#6B7280]">Share this with your customers</p>{% endblock %}
+
+{% block dashboard_content %}
+<div class="max-w-2xl mx-auto">
+  <div class="bg-white rounded-2xl border border-[#E7E7E0] overflow-hidden">
+    
+    {# QR Code Display #}
+    <div class="p-12 bg-[#FAFAF7] flex flex-col items-center">
+      <div class="bg-white p-6 rounded-2xl shadow-2xl mb-6">
+        <img src="/media/{{ qr_path }}" alt="QR Code for {{ restaurant.name }}" class="w-80 h-80 object-contain">
+      </div>
+      <p class="text-sm text-[#6B7280] text-center mb-2">Scan this QR code to view your menu</p>
+      <p class="text-xs text-[#9CA3AF] font-mono break-all text-center max-w-md">{{ menu_url }}</p>
+    </div>
+    
+    {# Actions #}
+    <div class="p-6 border-t border-[#E7E7E0] space-y-3">
+      <a href="/media/{{ qr_path }}" download="qr-code-{{ restaurant.slug }}.png"
+         class="flex items-center justify-center gap-2 bg-[#064E3B] hover:bg-[#059669] text-white font-medium text-sm px-6 py-3 rounded-xl transition-colors w-full">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+        </svg>
+        Download QR Code
+      </a>
+      
+      <a href="{{ menu_url }}" target="_blank"
+         class="flex items-center justify-center gap-2 border border-[#E7E7E0] hover:border-[#064E3B] text-[#0A0A0A] font-medium text-sm px-6 py-3 rounded-xl transition-colors w-full">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+        </svg>
+        Preview Live Menu
+      </a>
+    </div>
+    
+  </div>
+  
+  {# Instructions #}
+  <div class="mt-8 bg-[#FFF7ED] border border-[#FED7AA] rounded-xl p-6">
+    <h3 class="font-medium text-[#0A0A0A] mb-3" style="font-family:'Fraunces',serif;">How to use your QR code</h3>
+    <ol class="space-y-2 text-sm text-[#6B7280]">
+      <li class="flex gap-2">
+        <span class="font-medium text-[#D97706]">1.</span>
+        <span>Download the QR code image using the button above</span>
+      </li>
+      <li class="flex gap-2">
+        <span class="font-medium text-[#D97706]">2.</span>
+        <span>Print it and display on tables, counter, or entrance</span>
+      </li>
+      <li class="flex gap-2">
+        <span class="font-medium text-[#D97706]">3.</span>
+        <span>Customers scan with their phone camera — no app needed</span>
+      </li>
+      <li class="flex gap-2">
+        <span class="font-medium text-[#D97706]">4.</span>
+        <span>They'll see your live menu instantly</span>
+      </li>
+    </ol>
+  </div>
+</div>
+{% endblock %}

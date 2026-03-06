@@ -1,0 +1,125 @@
+{% extends "base_dashboard.html" %}
+{% block title %}Menu Categories — {{ restaurant.name }}{% endblock %}
+{% block page_title %}Menu Categories{% endblock %}
+{% block page_subtitle %}<p class="text-xs text-[#6B7280]">Organize your menu items</p>{% endblock %}
+
+{% block dashboard_content %}
+
+{# Add New Category Form #}
+<div class="bg-white rounded-2xl border border-[#E7E7E0] p-6 mb-6">
+  <h2 class="text-lg font-medium mb-4" style="font-family:'Fraunces',serif;">
+    {% if editing %}Edit Category{% else %}Add New Category{% endif %}
+  </h2>
+  
+  <form method="post" class="space-y-4">
+    {% csrf_token %}
+    
+    {% if form.non_field_errors %}
+    <div class="bg-red-50 text-red-600 p-3 rounded-lg text-sm">
+      {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-[#0A0A0A] mb-1.5">
+          Category Name <span class="text-red-500">*</span>
+        </label>
+        {{ form.name }}
+        {% if form.name.errors %}
+        <p class="mt-1 text-sm text-red-600">{{ form.name.errors.0 }}</p>
+        {% endif %}
+      </div>
+      
+      <div>
+        <label for="{{ form.order.id_for_label }}" class="block text-sm font-medium text-[#0A0A0A] mb-1.5">
+          Display Order
+        </label>
+        {{ form.order }}
+        {% if form.order.errors %}
+        <p class="mt-1 text-sm text-red-600">{{ form.order.errors.0 }}</p>
+        {% endif %}
+        <p class="mt-1 text-xs text-[#6B7280]">Lower numbers appear first</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-3 pt-4">
+      <button type="submit" class="bg-[#059669] text-white px-6 py-2.5 rounded-xl font-medium hover:bg-[#064E3B] transition-colors">
+        {% if editing %}Update Category{% else %}Add Category{% endif %}
+      </button>
+      {% if editing %}
+      <a href="{% url 'restaurants:categories' %}" class="text-[#6B7280] hover:text-[#0A0A0A] transition-colors px-4 py-2.5">
+        Cancel
+      </a>
+      {% endif %}
+    </div>
+  </form>
+</div>
+
+{# Categories List #}
+<div class="bg-white rounded-2xl border border-[#E7E7E0] overflow-hidden">
+  <div class="px-6 py-4 border-b border-[#E7E7E0]">
+    <h2 class="font-medium text-[#0A0A0A]" style="font-family:'Fraunces',serif;">Your Categories</h2>
+  </div>
+  
+  {% if categories %}
+  <div class="divide-y divide-[#F5F5F0]">
+    {% for category in categories %}
+    <div class="p-6 hover:bg-[#FAFAF7] transition-colors">
+      <div class="flex items-start justify-between">
+        <div class="flex-1">
+          <div class="flex items-center gap-3 mb-2">
+            <h3 class="text-lg font-medium text-[#0A0A0A]" style="font-family:'Fraunces',serif;">
+              {{ category.name }}
+            </h3>
+            <span class="inline-flex items-center text-xs font-medium px-2.5 py-1 rounded-full bg-[#F5F5F0] text-[#6B7280]">
+              Order: {{ category.order }}
+            </span>
+            <span class="inline-flex items-center text-xs font-medium px-2.5 py-1 rounded-full bg-[#E0F2FE] text-[#0369A1]">
+              {{ category.items.count }} item{{ category.items.count|pluralize }}
+            </span>
+          </div>
+          
+          <p class="text-xs text-[#6B7280] font-mono">
+            Slug: {{ category.slug }}
+          </p>
+        </div>
+        
+        <div class="flex items-center gap-2 ml-4">
+          <a href="{% url 'restaurants:edit_category' category.id %}" 
+             class="inline-flex items-center gap-1.5 text-sm font-medium text-[#059669] hover:text-[#064E3B] transition-colors px-3 py-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+            </svg>
+            Edit
+          </a>
+          
+          <form method="post" action="{% url 'restaurants:delete_category' category.id %}" 
+                onsubmit="return confirm('Delete {{ category.name }}? Items in this category will not be deleted.');"
+                class="inline">
+            {% csrf_token %}
+            <button type="submit" 
+                    class="inline-flex items-center gap-1.5 text-sm font-medium text-red-600 hover:text-red-700 transition-colors px-3 py-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+              </svg>
+              Delete
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="p-12 text-center">
+    <svg class="w-16 h-16 mx-auto text-[#E7E7E0] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+    </svg>
+    <p class="text-[#6B7280] mb-2">No categories yet</p>
+    <p class="text-sm text-[#6B7280]">Add your first category to organize your menu items</p>
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}
