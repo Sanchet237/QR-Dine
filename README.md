@@ -12,7 +12,6 @@
     <a href="#-demo-credentials">Demo Credentials</a> •
     <a href="#-features">Features</a> •
     <a href="#-installation">Installation</a> •
-    <a href="DEPLOYMENT.md">Deployment Guide</a> •
     <a href="#-documentation">Documentation</a>
   </p>
   
@@ -42,7 +41,6 @@
 - [Installation](#-installation)
 - [Usage Guide](#-usage-guide)
 - [Documentation](#-documentation)
-- [Deployment](#-deployment)
 - [Screenshots](#-screenshots)
 - [Future Enhancements](#-future-enhancements)
 - [Contributing](#-contributing)
@@ -620,19 +618,6 @@ Detailed documentation is available for each module:
 - **[Menu Module](menu/README.md)** — Public menu viewer for customers
 - **[Super Admin Module](superadmin/README.md)** — Platform administration and management
 - **[Core Module](core/README.md)** — Landing page and shared utilities
-
----
-
-## 🚀 Deployment
-
-QRDine can be deployed on various free platforms:
-
-- **Render** (Recommended) — See [DEPLOYMENT.md](DEPLOYMENT.md)
-- **Railway** — Free tier with $5 credit
-- **PythonAnywhere** — Free tier available
-- **Heroku** — Paid plans only
-
-**Full deployment guide:** [DEPLOYMENT.md](DEPLOYMENT.md)
 
 ---
 
