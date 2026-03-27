@@ -142,28 +142,20 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 CLOUDINARY_URL = os.getenv('CLOUDINARY_URL', '')  # e.g. cloudinary://api_key:api_secret@cloud_name
 
-if CLOUDINARY_URL:
-    # Production: store uploads on Cloudinary
-    STORAGES = {
-        "default": {
-            "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-        },
-        "staticfiles": {
-            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-        },
-    }
-else:
-    # Development: store uploads locally
-    STORAGES = {
-        "default": {
-            "BACKEND": "django.core.files.storage.FileSystemStorage",
-        },
-        "staticfiles": {
-            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-        },
-    }
-    MEDIA_URL = 'media/'
-    MEDIA_ROOT = BASE_DIR / 'media'
+# WhiteNoise configuration for production static file serving
+WHITENOISE_MANIFEST_STRICT = False  # Ignore missing files in CSS (prevents build crash)
+WHITENOISE_USE_FINDERS = True      # Check all staticfinders
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+if not CLOUDINARY_URL:
+    STORAGES["default"]["BACKEND"] = "django.core.files.storage.FileSystemStorage"
 
 
 # ─── Logging ──────────────────────────────────────────────────────────────────
