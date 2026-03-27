@@ -157,6 +157,9 @@ STORAGES = {
 if not CLOUDINARY_URL:
     STORAGES["default"]["BACKEND"] = "django.core.files.storage.FileSystemStorage"
 
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 
 # ─── Logging ──────────────────────────────────────────────────────────────────
 
