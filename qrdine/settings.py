@@ -51,9 +51,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     # Third-party
+    'cloudinary',
     'storages',
     # QRDine apps
     'accounts',
@@ -144,13 +146,12 @@ if CLOUDINARY_URL:
     # Production: store uploads on Cloudinary
     STORAGES = {
         "default": {
-            "BACKEND": "storages.backends.cloudinary.CloudinaryStorage",
+            "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
         },
         "staticfiles": {
             "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
         },
     }
-    MEDIA_URL = f'https://res.cloudinary.com/{CLOUDINARY_URL.split("@")[-1]}/'
 else:
     # Development: store uploads locally
     STORAGES = {
