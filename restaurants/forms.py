@@ -4,7 +4,10 @@ from .models import Restaurant, Category, MenuItem
 
 class RestaurantProfileForm(forms.ModelForm):
     """Form for editing restaurant profile"""
-    
+
+    ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
+    MAX_IMAGE_SIZE = 5 * 1024 * 1024  # 5 MB
+
     class Meta:
         model = Restaurant
         fields = ['name', 'email', 'phone', 'address', 'description', 'logo']
@@ -29,6 +32,15 @@ class RestaurantProfileForm(forms.ModelForm):
             }),
         }
 
+    def clean_logo(self):
+        logo = self.cleaned_data.get('logo')
+        if logo and hasattr(logo, 'size'):
+            if logo.size > self.MAX_IMAGE_SIZE:
+                raise forms.ValidationError('Logo must be under 5 MB.')
+            if hasattr(logo, 'content_type') and logo.content_type not in self.ALLOWED_IMAGE_TYPES:
+                raise forms.ValidationError('Logo must be a JPEG, PNG, WebP, or GIF image.')
+        return logo
+
 
 class CategoryForm(forms.ModelForm):
     """Form for adding/editing categories"""
@@ -51,13 +63,16 @@ class CategoryForm(forms.ModelForm):
 
 class MenuItemForm(forms.ModelForm):
     """Form for adding/editing menu items"""
-    
+
+    ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
+    MAX_IMAGE_SIZE = 5 * 1024 * 1024  # 5 MB
+
     def __init__(self, restaurant, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Filter categories by restaurant
         self.fields['category'].queryset = Category.objects.filter(restaurant=restaurant)
         self.fields['category'].required = False
-    
+
     class Meta:
         model = MenuItem
         fields = ['name', 'category', 'description', 'price', 'image', 'is_available', 'is_vegetarian']
@@ -78,3 +93,12 @@ class MenuItemForm(forms.ModelForm):
                 'class': 'w-full px-4 py-3 border border-[#E7E7E0] rounded-xl text-sm focus:border-[#059669] focus:ring-2 focus:ring-[#D1FAE5] outline-none transition-all'
             }),
         }
+
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        if image and hasattr(image, 'size'):
+            if image.size > self.MAX_IMAGE_SIZE:
+                raise forms.ValidationError('Image must be under 5 MB.')
+            if hasattr(image, 'content_type') and image.content_type not in self.ALLOWED_IMAGE_TYPES:
+                raise forms.ValidationError('Image must be a JPEG, PNG, WebP, or GIF file.')
+        return image

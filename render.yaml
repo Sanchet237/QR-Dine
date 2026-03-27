@@ -3,7 +3,7 @@ services:
     name: qrdine
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn qrdine.wsgi:application --bind 0.0.0.0:$PORT"
+    startCommand: "gunicorn qrdine.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120"
     plan: free
 
     envVars:
@@ -12,13 +12,22 @@ services:
       - key: DEBUG
         value: "False"
       - key: ALLOWED_HOSTS
-        value: "qrdine.onrender.com"
+        value: "qr-dine-15cf.onrender.com"
       - key: CSRF_TRUSTED_ORIGINS
-        value: "https://qrdine.onrender.com"
+        value: "https://qr-dine-15cf.onrender.com"
       - key: PYTHON_VERSION
         value: "3.11.0"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: qrdine-db
+          property: connectionString
+      - key: CLOUDINARY_URL
+        sync: false                # Set manually in Render dashboard
+      - key: ADMIN_EMAIL
+        value: "admin@qrdine.com"
+      - key: ADMIN_PASSWORD
+        sync: false                # Set manually in Render dashboard
 
-    disk:
-      name: qrdine-media
-      mountPath: /opt/render/project/src/media
-      sizeGB: 1
+databases:
+  - name: qrdine-db
+    plan: free

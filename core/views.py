@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from restaurants.models import Restaurant, MenuItem
 
 
@@ -21,6 +22,22 @@ def terms(request):
 def privacy(request):
     """Privacy Policy page"""
     return render(request, 'core/privacy.html')
+
+
+def robots_txt(request):
+    """robots.txt — disallow crawling of private/admin routes"""
+    lines = [
+        'User-agent: *',
+        'Disallow: /admin/',
+        'Disallow: /dashboard/',
+        'Disallow: /accounts/',
+        'Disallow: /superadmin/',
+        'Allow: /',
+        'Allow: /menu/',
+        '',
+        f'Sitemap: {request.build_absolute_uri("/sitemap.xml")}',
+    ]
+    return HttpResponse('\n'.join(lines), content_type='text/plain')
 
 
 def custom_404(request, exception):

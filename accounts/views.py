@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib import messages
+from django.views.decorators.http import require_POST
+from django_ratelimit.decorators import ratelimit
 from .forms import RegisterForm, LoginForm
 
 
+@ratelimit(key='ip', rate='10/m', block=True)
 def register_view(request):
     """Restaurant registration view"""
     if request.user.is_authenticated:
@@ -24,6 +27,7 @@ def register_view(request):
     return render(request, 'accounts/register.html', {'form': form})
 
 
+@ratelimit(key='ip', rate='10/m', block=True)
 def login_view(request):
     """User login view"""
     if request.user.is_authenticated:
@@ -48,8 +52,9 @@ def login_view(request):
     return render(request, 'accounts/login.html', {'form': form})
 
 
+@require_POST
 def logout_view(request):
-    """User logout view"""
+    """User logout view — POST only to prevent CSRF logout attacks"""
     logout(request)
     messages.info(request, "You've been logged out successfully.")
     return redirect('core:landing')

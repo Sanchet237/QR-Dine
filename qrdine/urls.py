@@ -20,8 +20,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    # Admin
-    path('admin/', admin.site.urls),
+    # Admin — non-default URL to reduce attack surface
+    path('manage-qrdine/', admin.site.urls),
     
     # Core / Landing
     path('', include('core.urls')),

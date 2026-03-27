@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.urls import reverse
 from accounts.models import User
 
 
@@ -33,7 +34,7 @@ class Restaurant(models.Model):
         super().save(*args, **kwargs)
 
     def get_menu_url(self):
-        return f"/menu/{self.slug}/"
+        return reverse('menu:viewer', kwargs={'slug': self.slug})
 
     @property
     def total_items(self):
